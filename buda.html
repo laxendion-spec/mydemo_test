@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阿彌陀經課誦普利方案 - 多維度修持與氣機調攝互動導覽</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        zenBg: '#FDFBF7',
+                        zenCard: '#F7F4EE',
+                        zenBorder: '#E5DFD5',
+                        amberAccent: '#D97706',
+                        amberDark: '#B45309',
+                        sageGreen: '#059669',
+                        slateDark: '#1E293B',
+                        slateMuted: '#4B5563'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FDFBF7;
+            color: #1E293B;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft JhengHei", sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .tab-btn-active {
+            background-color: #D97706 !important;
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="bg-zenCard border-b border-zenBorder sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-amberAccent text-white flex items-center justify-center font-bold text-xl shadow">
+                        彌
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold text-slateDark leading-tight">《佛說阿彌陀經》課誦普利方案</h1>
+                        <p class="text-xs text-slateMuted">多維度利樂修持與生理氣機調攝指南</p>
+                    </div>
+                </div>
+                <!-- Navigation Tabs -->
+                <nav class="hidden md:flex space-x-8 text-sm font-medium text-slateMuted">
+                    <button onclick="scrollToSection('overview')" class="hover:text-amberDark py-5 px-1 transition-colors">概覽與體制</button>
+                    <button onclick="scrollToSection('dilemma')" class="hover:text-amberDark py-5 px-1 transition-colors">氣機困境分析</button>
+                    <button onclick="scrollToSection('simulator')" class="hover:text-amberDark py-5 px-1 transition-colors">調息與模擬器</button>
+                    <button onclick="scrollToSection('solutions')" class="hover:text-amberDark py-5 px-1 transition-colors">全維度方案</button>
+                    <button onclick="scrollToSection('visualization')" class="hover:text-amberDark py-5 px-1 transition-colors">隨文入觀導讀</button>
+                    <button onclick="scrollToSection('ai-tutor')" class="text-amberDark font-bold py-5 px-1 transition-colors flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-amberAccent animate-pulse"></span>
+                        AI 智慧助修
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Hero Section -->
+        <section id="overview" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-zenBorder">
+            <div class="max-w-3xl">
+                <span class="inline-block px-3 py-1 bg-amber-100 text-amberDark rounded-full text-xs font-semibold mb-3">
+                    研究與應用導覽
+                </span>
+                <h2 class="text-2xl md:text-3xl font-bold text-slateDark mb-4">
+                    解構傳統課誦重耗 · 回歸信願與氣神相依之本源
+                </h2>
+                <p class="text-slateMuted leading-relaxed mb-6">
+                    本系統旨在解決現代行者於長卷高頻課誦中所面臨之「傷氣胸悶、文義阻隔、身心疲竭」等現實困境。依據天台止觀調息原理、印光大師淨土指引與《阿彌陀經要解》，構建初學者、老修者、法師、無形眾生及器世間共受法益之圓融方案。
+                </p>
+            </div>
+
+            <!-- Key Indicators Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+                <div class="bg-zenBg p-4 rounded-xl border border-zenBorder flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs text-slateMuted font-medium">朝暮課誦核心宗旨</p>
+                        <h3 class="text-lg font-bold text-slateDark mt-1">覺昏除昧 · 總攝歸淨</h3>
+                    </div>
+                    <p class="text-xs text-amberDark mt-3">早課治欲未萌，晚課導歸安養</p>
+                </div>
+
+                <div class="bg-zenBg p-4 rounded-xl border border-zenBorder flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs text-slateMuted font-medium">生理呼吸四相 (天台)</p>
+                        <h3 class="text-lg font-bold text-slateDark mt-1">風 · 喘 · 氣 · 息</h3>
+                    </div>
+                    <p class="text-xs text-rose-600 mt-3">急迫上逆為喘，氣逆則傷身</p>
+                </div>
+
+                <div class="bg-zenBg p-4 rounded-xl border border-zenBorder flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs text-slateMuted font-medium">淨土往生樞紐 (蕅益)</p>
+                        <h3 class="text-lg font-bold text-slateDark mt-1">信 · 願 · 行 三資糧</h3>
+                    </div>
+                    <p class="text-xs text-sageGreen mt-3">得生與否全憑信願之有無</p>
+                </div>
+
+                <div class="bg-zenBg p-4 rounded-xl border border-zenBorder flex flex-col justify-between">
+                    <div>
+                        <p class="text-xs text-slateMuted font-medium">全維度普利對象</p>
+                        <h3 class="text-lg font-bold text-slateDark mt-1">5 大受惠維度</h3>
+                    </div>
+                    <p class="text-xs text-amberDark mt-3">初學/老修/領眾/幽冥/器世間</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dilemma" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-zenBorder space-y-6">
+            <div>
+                <h2 class="text-xl md:text-2xl font-bold text-slateDark border-l-4 border-amberAccent pl-3">
+                    第一章：課誦體制源流與現代行者之身心困境
+                </h2>
+                <p class="text-slateMuted text-sm mt-2 leading-relaxed">
+                    本區塊分析明清叢林課誦制度之歷史演進，並比對傳統道場集體共修與現代居家獨修之差異。現代人在無引磬換氣調節與缺乏聲帶呼吸訓練下，長時急誦極易導致氣機逆上、肺泡氣體交換不完全，衍生生理與心理之多重障礙。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                <!-- Comparison Table -->
+                <div class="bg-zenBg p-5 rounded-xl border border-zenBorder space-y-4">
+                    <h3 class="font-bold text-slateDark text-base flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-amberAccent"></span>
+                        共修環境與居家獨修之對比評估
+                    </h3>
+                    <div class="space-y-3 text-xs md:text-sm">
+                        <div class="p-3 bg-white rounded-lg border border-zenBorder">
+                            <div class="font-semibold text-slateDark">發聲與氣息調攝</div>
+                            <div class="text-slateMuted mt-1"><span class="text-sageGreen font-medium">叢林：</span>僧眾集體共振，氣息互補，音律沉著。</div>
+                            <div class="text-slateMuted"><span class="text-rose-600 font-medium">居家：</span>個體單獨發聲，換氣受限，易胸悶氣喘。</div>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg border border-zenBorder">
+                            <div class="font-semibold text-slateDark">義理認知與觀想</div>
+                            <div class="text-slateMuted mt-1"><span class="text-sageGreen font-medium">叢林：</span>熟知科判注疏，能於梵唄中凝神內觀。</div>
+                            <div class="text-slateMuted"><span class="text-rose-600 font-medium">居家：</span>文言阻隔，追趕字音，有口無心淪於形式。</div>
+                        </div>
+                        <div class="p-3 bg-white rounded-lg border border-zenBorder">
+                            <div class="font-semibold text-slateDark">體能與心態負擔</div>
+                            <div class="text-slateMuted mt-1"><span class="text-sageGreen font-medium">叢林：</span>作息規律，專職道業，有集體安息氣場。</div>
+                            <div class="text-slateMuted"><span class="text-rose-600 font-medium">居家：</span>俗務繁劇，視長時定課為負擔，易生畏難心。</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Radar Chart Container -->
+                <div class="bg-zenBg p-5 rounded-xl border border-zenBorder">
+                    <h3 class="font-bold text-slateDark text-base mb-2 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-amberAccent"></span>
+                        長時急誦身心負擔指數評估
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="dilemmaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="simulator" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-zenBorder space-y-6">
+            <div>
+                <h2 class="text-xl md:text-2xl font-bold text-slateDark border-l-4 border-amberAccent pl-3">
+                    第二章：天台四相與呼吸氣機模擬系統
+                </h2>
+                <p class="text-slateMuted text-sm mt-2 leading-relaxed">
+                    智者大師於《小止觀》中明確指出呼吸四相：「有聲曰風，結滯曰喘，出入不盡曰氣，不聲不結不粗曰息」。強行持誦若陷入「風喘氣」三相，必傷氣受病。請透過下方模擬器觀察不同節奏對呼吸曲線與體能耗損之影響。
+                </p>
+            </div>
+
+            <!-- Canvas Breath Simulator -->
+            <div class="bg-zenBg p-6 rounded-xl border border-zenBorder space-y-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-zenBorder pb-4">
+                    <div>
+                        <h3 class="font-bold text-slateDark text-lg">呼吸節奏與氣機狀態動態模擬</h3>
+                        <p class="text-xs text-slateMuted">點擊切換模式，觀察動態波形與氣血沉降狀態</p>
+                    </div>
+                    <!-- Mode Buttons -->
+                    <div class="flex flex-wrap gap-2" id="breathModeBtns">
+                        <button onclick="setBreathMode('chuan')" id="btn-chuan" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-rose-100 text-rose-700 hover:bg-rose-200 transition">
+                            1. 急急追誦 (喘相/傷氣)
+                        </button>
+                        <button onclick="setBreathMode('qi')" id="btn-qi" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-100 text-amberDark hover:bg-amber-200 transition">
+                            2. 換氣不足 (氣相/結滯)
+                        </button>
+                        <button onclick="setBreathMode('xi')" id="btn-xi" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition tab-btn-active">
+                            3. 氣沉丹田 (息相/神氣充暢)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Wave Canvas -->
+                <div class="relative w-full bg-slateDark rounded-xl p-4 overflow-hidden shadow-inner">
+                    <canvas id="breathCanvas" class="w-full h-48 block"></canvas>
+                    <div class="absolute top-3 left-4 text-xs font-mono text-slate-300 bg-slate-800/80 px-2 py-1 rounded">
+                        目前狀態: <span id="modeStatusTitle" class="text-emerald-400 font-bold">息相 (深長勻細)</span>
+                    </div>
+                </div>
+
+                <div id="breathModeDesc" class="p-4 bg-white rounded-lg border border-zenBorder text-sm leading-relaxed text-slateDark">
+                    <!-- Dynamic Text Injected here -->
+                </div>
+            </div>
+
+            <!-- Self-Assessment Tool -->
+            <div class="bg-amber-50/50 p-6 rounded-xl border border-amber-200/60 space-y-4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <h3 class="font-bold text-slateDark text-lg flex items-center gap-2">
+                        <span class="text-amberAccent text-xl">💡</span> 課誦方案自測與量身建議導師
+                    </h3>
+                    <button onclick="generateAIPersonalizedPlan()" id="aiPlanBtn" class="px-3.5 py-1.5 bg-amberDark hover:bg-amber-700 text-white rounded-lg text-xs font-semibold shadow flex items-center gap-1.5 transition">
+                        <span>✨ AI 智慧量身客製專屬方案</span>
+                    </button>
+                </div>
+                <p class="text-xs text-slateMuted">請勾選您的現狀，系統將依據印光大師與天台止觀原理，即時推薦最佳修持組合，或點擊 AI 按鈕生成個人化方案：</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs md:text-sm">
+                    <div>
+                        <label class="block font-semibold text-slateDark mb-2">1. 身份與佛學基礎</label>
+                        <select id="userRole" onchange="calculateRecommendation()" class="w-full p-2 rounded-lg border border-zenBorder bg-white text-slateDark">
+                            <option value="beginner">初入佛門 / 缺乏名相基礎</option>
+                            <option value="advanced">老修專修 / 熟諳經文</option>
+                            <option value="leader">法師 / 道場領眾者</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slateDark mb-2">2. 生理與體能狀況</label>
+                        <select id="userHealth" onchange="calculateRecommendation()" class="w-full p-2 rounded-lg border border-zenBorder bg-white text-slateDark">
+                            <option value="weak">容易氣短 / 氣管敏感 / 體虛</option>
+                            <option value="busy">公務繁忙 / 時間極度有限</option>
+                            <option value="normal">體力正常 / 充裕</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slateDark mb-2">3. 主要修持目標</label>
+                        <select id="userGoal" onchange="calculateRecommendation()" class="w-full p-2 rounded-lg border border-zenBorder bg-white text-slateDark">
+                            <option value="peace">安頓身心 / 養氣調神</option>
+                            <option value="insight">隨文入觀 / 親證三昧</option>
+                            <option value="merit">迴向幽冥 / 淨化環境</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Recommendation Output Box -->
+                <div id="recommendationResult" class="mt-4 p-4 bg-white rounded-lg border border-amber-200 text-sm space-y-2">
+                    <!-- Dynamic Recommendation Injected -->
+                </div>
+            </div>
+        </section>
+
+        <section id="solutions" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-zenBorder space-y-6">
+            <div>
+                <h2 class="text-xl md:text-2xl font-bold text-slateDark border-l-4 border-amberAccent pl-3">
+                    第三章：《阿彌陀經》全維度受惠修持方案矩陣
+                </h2>
+                <p class="text-slateMuted text-sm mt-2 leading-relaxed">
+                    本區塊將五大受惠維度建立為可切換的互動矩陣。依據「依報隨正報轉」與感應道交原理，清淨音聲與至誠信願不僅能養護個人肉體，亦能化解幽冥苦趣與調和器世間生態。
+                </p>
+            </div>
+
+            <!-- Dimension Selector Tabs -->
+            <div class="flex flex-wrap gap-2 border-b border-zenBorder pb-3" id="dimensionTabs">
+                <button onclick="switchDimension('beginner')" id="tab-beginner" class="px-4 py-2 rounded-xl text-xs md:text-sm font-semibold transition tab-btn-active">
+                    1. 初入佛門者
+                </button>
+                <button onclick="switchDimension('advanced')" id="tab-advanced" class="px-4 py-2 rounded-xl text-xs md:text-sm font-semibold text-slateMuted hover:bg-zenBg transition">
+                    2. 老修專修者
+                </button>
+                <button onclick="switchDimension('leader')" id="tab-leader" class="px-4 py-2 rounded-xl text-xs md:text-sm font-semibold text-slateMuted hover:bg-zenBg transition">
+                    3. 法師/領眾者
+                </button>
+                <button onclick="switchDimension('unseen')" id="tab-unseen" class="px-4 py-2 rounded-xl text-xs md:text-sm font-semibold text-slateMuted hover:bg-zenBg transition">
+                    4. 無形眾生/幽冥
+                </button>
+                <button onclick="switchDimension('environment')" id="tab-environment" class="px-4 py-2 rounded-xl text-xs md:text-sm font-semibold text-slateMuted hover:bg-zenBg transition">
+                    5. 器世間/生態環境
+                </button>
+            </div>
+
+            <!-- Tab Content Display Area -->
+            <div id="dimensionContent" class="bg-zenBg p-6 rounded-xl border border-zenBorder space-y-6">
+                <!-- Content injected via JS -->
+            </div>
+        </section>
+
+        <section id="visualization" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-zenBorder space-y-6">
+            <div>
+                <h2 class="text-xl md:text-2xl font-bold text-slateDark border-l-4 border-amberAccent pl-3">
+                    第四章：《阿彌陀經》核心章節隨文入觀導讀
+                </h2>
+                <p class="text-slateMuted text-sm mt-2 leading-relaxed">
+                    「隨文入觀」為大乘課誦之精髓。誦經時若僅求速度而無觀想，則成「徒設虛文」。請點擊下方經文代表性章節，體驗從「文字音相」轉化為「極樂依正莊嚴觀想」與「心性實相」之層次提升。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Chapter Selector Cards -->
+                <div onclick="selectSutraPassage(0)" id="passageCard-0" class="p-4 bg-zenBg rounded-xl border-2 border-amberAccent cursor-pointer hover:shadow-md transition">
+                    <span class="text-xs text-amberDark font-bold">第一階段：極樂依報莊嚴</span>
+                    <h3 class="font-bold text-slateDark text-base mt-1">七寶池與八功德水</h3>
+                    <p class="text-xs text-slateMuted mt-2">「池中蓮華大如車輪，青色青光，黃色黃光...」</p>
+                </div>
+
+                <div onclick="selectSutraPassage(1)" id="passageCard-1" class="p-4 bg-zenBg rounded-xl border-2 border-transparent hover:border-zenBorder cursor-pointer hover:shadow-md transition">
+                    <span class="text-xs text-amberDark font-bold">第二階段：人文風樹演法</span>
+                    <h3 class="font-bold text-slateDark text-base mt-1">寶樹羅網與微風吹動</h3>
+                    <p class="text-xs text-slateMuted mt-2">「微風吹動諸寶行樹及寶羅網，出微妙音...」</p>
+                </div>
+
+                <div onclick="selectSutraPassage(2)" id="passageCard-2" class="p-4 bg-zenBg rounded-xl border-2 border-transparent hover:border-zenBorder cursor-pointer hover:shadow-md transition">
+                    <span class="text-xs text-amberDark font-bold">第三階段：正報與信願樞紐</span>
+                    <h3 class="font-bold text-slateDark text-base mt-1">阿彌陀佛名號與諸佛同讚</h3>
+                    <p class="text-xs text-slateMuted mt-2">「彼佛光明無量，照十方國無所障礙...」</p>
+                </div>
+            </div>
+
+            <!-- Detail Display Area -->
+            <div id="sutraDetailBox" class="bg-zenBg p-6 rounded-xl border border-zenBorder grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <section id="ai-tutor" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-zenBorder space-y-8">
+            <div class="border-b border-zenBorder pb-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                <div>
+                    <span class="inline-block px-3 py-1 bg-amber-100 text-amberDark rounded-full text-xs font-semibold mb-2">
+                        Gemini API 智慧驅動
+                    </span>
+                    <h2 class="text-xl md:text-2xl font-bold text-slateDark border-l-4 border-amberAccent pl-3">
+                        第五章：AI 智慧修持導師、梵唄語音與極樂意境生成
+                    </h2>
+                </div>
+                <p class="text-xs text-slateMuted max-w-md">結合最新大語言模型，為行者提供即時經義答疑、天台調息解惑、多語音色導引與淨土意境視覺化生成。</p>
+            </div>
+
+            <!-- Grid of 3 AI Features -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- AI Feature 1: Sutra & Breathing Assistant Chat -->
+                <div class="bg-zenBg p-5 rounded-xl border border-zenBorder flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-bold text-slateDark text-base flex items-center gap-2">
+                                <span class="text-amberDark">💬</span> AI 隨文解義與調息問答
+                            </h3>
+                            <span class="text-[10px] bg-amber-100 text-amberDark font-bold px-2 py-0.5 rounded">gemini-3-flash</span>
+                        </div>
+                        <p class="text-xs text-slateMuted leading-relaxed mb-3">
+                            輸入任何誦經疑問（如「念經氣逆怎麼辦？」或「如何隨文觀想八功德水？」），獲取天台止觀與淨宗祖師教示。
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-1.5 mb-3">
+                            <button onclick="setAiQuery('為什麼念阿彌陀經容易急促氣短？如何用天台止觀化解？')" class="text-[11px] bg-white border border-zenBorder hover:border-amberAccent text-slateDark px-2 py-1 rounded transition">急促氣短化解</button>
+                            <button onclick="setAiQuery('如何理解「得生與否全憑信願之有無」？')" class="text-[11px] bg-white border border-zenBorder hover:border-amberAccent text-slateDark px-2 py-1 rounded transition">信願樞紐</button>
+                            <button onclick="setAiQuery('無形眾生如何透過清淨音聲獲得利益？')" class="text-[11px] bg-white border border-zenBorder hover:border-amberAccent text-slateDark px-2 py-1 rounded transition">幽冥受惠機制</button>
+                        </div>
+
+                        <div class="space-y-2">
+                            <textarea id="aiAskInput" rows="3" placeholder="請輸入您於課誦或調息時遇到的疑惑..." class="w-full text-xs p-3 rounded-lg border border-zenBorder focus:outline-none focus:ring-2 focus:ring-amberAccent bg-white text-slateDark"></textarea>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button onclick="askAITutor()" id="askAiBtn" class="w-full py-2 bg-amberAccent hover:bg-amberDark text-white text-xs font-bold rounded-lg transition shadow flex items-center justify-center gap-1.5">
+                            <span>請 AI 導師解答</span>
+                        </button>
+
+                        <div id="aiAskOutput" class="mt-3 p-3 bg-white rounded-lg border border-zenBorder text-xs text-slateDark max-h-48 overflow-y-auto leading-relaxed hidden">
+                            <!-- Injected response -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Feature 2: Gemini TTS Audio Guidance -->
+                <div class="bg-zenBg p-5 rounded-xl border border-zenBorder flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-bold text-slateDark text-base flex items-center gap-2">
+                                <span class="text-amberDark">🎙️</span> AI 靜心梵唄與調息語音 (TTS)
+                            </h3>
+                            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">2.5-flash-tts</span>
+                        </div>
+                        <p class="text-xs text-slateMuted leading-relaxed mb-3">
+                            選擇經文讚偈或氣機調攝文字，由 Gemini 生成安詳沉靜的梵唄或念佛導引語音（PCM16 轉 WAV 即時播放）。
+                        </p>
+
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slateDark mb-1">導引語音內容：</label>
+                                <select id="ttsPromptSelect" class="w-full text-xs p-2 rounded-lg border border-zenBorder bg-white text-slateDark">
+                                    <option value="breath">【丹田調息導引】請以極度沉靜安詳的語氣說：氣沉丹田，身心放鬆。吸氣綿綿，呼氣勻勻。念自心起，聲從口出，音從耳入。</option>
+                                    <option value="praise">【阿彌陀佛讚偈】請以莊嚴安詳的梵唄語調唸誦：阿彌陀佛身金色，相好光明無等倫。白毫宛轉五須彌，紺目澄清四大海。</option>
+                                    <option value="tenCount">【慈雲十念法導引】請以平和懇切的語氣說：晨起面西，盡一口氣念南無阿彌陀佛，十口氣不亂，信願具足，必定往生。</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] font-bold text-slateDark mb-1">音色選擇：</label>
+                                <select id="ttsVoiceSelect" class="w-full text-xs p-2 rounded-lg border border-zenBorder bg-white text-slateDark">
+                                    <option value="Aoede">Aoede (輕鬆和雅 Breezy)</option>
+                                    <option value="Kore">Kore (堅定沉穩 Firm)</option>
+                                    <option value="Zephyr">Zephyr (清亮安詳 Bright)</option>
+                                    <option value="Charon">Charon (莊嚴教示 Informative)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button onclick="generateChantingTTS()" id="ttsBtn" class="w-full py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-lg transition shadow flex items-center justify-center gap-1.5">
+                            <span>🔊 生成並播放 AI 語音導引</span>
+                        </button>
+                        <div id="ttsAudioContainer" class="mt-3 hidden">
+                            <audio id="ttsAudioPlayer" controls class="w-full h-8"></audio>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Feature 3: Pure Land Image Generator -->
+                <div class="bg-zenBg p-5 rounded-xl border border-zenBorder flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-bold text-slateDark text-base flex items-center gap-2">
+                                <span class="text-amberDark">🖼️</span> AI 淨土極樂依正意境生成
+                            </h3>
+                            <span class="text-[10px] bg-purple-100 text-purple-800 font-bold px-2 py-0.5 rounded">3.1-flash-image</span>
+                        </div>
+                        <p class="text-xs text-slateMuted leading-relaxed mb-3">
+                            根據《阿彌陀經》經文描述，由 Gemini AI 生成寶池蓮華、寶樹羅網等隨文入觀之神聖意境圖像。
+                        </p>
+
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-bold text-slateDark">選擇意境主題：</label>
+                            <select id="imagePromptSelect" class="w-full text-xs p-2 rounded-lg border border-zenBorder bg-white text-slateDark">
+                                <option value="pond">七寶池與八功德水，池中大如車輪之青黃赤白四色光芒蓮華</option>
+                                <option value="tree">七重行樹與七重羅網，微風吹動出微妙和雅音聲</option>
+                                <option value="hall">極樂世界黃金為地，諸天晝夜雨天曼陀羅華</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button onclick="generatePureLandImage()" id="genImgBtn" class="w-full py-2 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-lg transition shadow flex items-center justify-center gap-1.5">
+                            <span>🎨 生成隨文入觀意境圖</span>
+                        </button>
+                        
+                        <div id="imgOutputContainer" class="mt-3 relative bg-white rounded-lg border border-zenBorder overflow-hidden h-36 flex items-center justify-center text-xs text-slateMuted">
+                            <span id="imgPlaceholderText">點擊按鈕生成圖像...</span>
+                            <img id="pureLandImage" class="w-full h-full object-cover hidden" alt="極樂依正莊嚴意境">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slateDark text-slate-400 py-8 border-t border-slate-700 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs space-y-2">
+            <p class="font-semibold text-slate-300">《阿彌陀經課誦普利方案》單頁互動研討系統</p>
+            <p>本系統基於天台止觀調息學、淨宗祖師（印光/蕅益）注疏及生理氣機理論建構</p>
+            <p class="text-slate-500 pt-2">© 2026 漢傳佛教課誦儀軌與氣機調攝研究團隊. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // API Key injected at runtime
+        const API_KEY = "AQ.Ab8RN6KDNuD2BmGMw1CFo5vmH9c2f-lDG3j5ZN9AXlc3gS8o4w";
+
+        // Universal Exponential Backoff Fetch Helper
+        async function fetchWithRetry(url, options, maxRetries = 3) {
+            let delay = 1000;
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.status === 429) {
+                        await new Promise(r => setTimeout(r, delay));
+                        delay *= 2;
+                        continue;
+                    }
+                    if (!response.ok) {
+                        const errText = await response.text();
+                        throw new Error(`API Error (${response.status}): ${errText}`);
+                    }
+                    return await response.json();
+                } catch (err) {
+                    if (i === maxRetries - 1) throw err;
+                    await new Promise(r => setTimeout(r, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        // --- Data Definitions ---
+        const sutraPassages = [
+            {
+                title: "七寶池與八功德水 (依報顯相)",
+                sutraText: "極樂國土有七寶池，八功德水，充滿其中，池底純以金沙布地。四邊階道，金、銀、琉璃、玻璃合成。上有樓閣，亦以金、銀、琉璃、玻璃、硨磲、赤珠、瑪瑙而嚴飾之。池中蓮華大如車輪，青色青光、黃色黃光、赤色赤光、白色白光，微妙香潔。",
+                viewInstruction: "【觀想法要】觀想心前如意湧現七寶清淨池水，澄淨湛然，水波微漾發出讚佛法音。池中大如車輪之四色蓮華放光，青色光明清涼心室，黃色光明滋養功德，赤色光明折伏煩躁，白色光明淨化業障。",
+                mindEssence: "【實相融通】八功德水乃自性清淨心之水，七寶池即本具功德法身。觀此境即是觀自性不生不滅、無污染之本然莊嚴。"
+            },
+            {
+                title: "寶樹羅網與微風演法 (音聲法樂)",
+                sutraText: "彼佛國土，微風吹動諸寶行樹及寶羅網，出微妙音，譬如百千種樂同時俱作。聞是音者，自然皆生念佛、念法、念僧之心。",
+                viewInstruction: "【觀想法要】聽聞耳邊誦經音聲或念佛號時，莫隨字音急追，隨音融入諸寶行樹微風和雅之音。將經聲轉化為天樂清鳴，聲聲入耳，字字入心，神氣自然沉降。",
+                mindEssence: "【實相融通】風樹法音非從外來，實乃心性種子隨感而現。聲聲經文皆是喚醒自性三寶（佛法僧）之真如妙音。"
+            },
+            {
+                title: "阿彌陀佛名號與諸佛讚嘆 (信願樞紐)",
+                sutraText: "彼佛光明無量，照十方國，無所障礙，是故號為阿彌陀... 汝等眾生，當信是稱讚不可思議功德一切諸佛所護念經。",
+                viewInstruction: "【觀想法要】觀想阿彌陀佛立於蓮華台上，慈悲金光遍照自身與六道眾生。發起至誠願生極樂之心，一念相應一念佛，念念相應念念佛。",
+                mindEssence: "【實相融通】阿彌陀佛即自性彌陀，極樂世界即唯心淨土。信願具足時，現前一念心性即與無量光壽佛完全相應。"
+            }
+        ];
+
+        const dimensionData = {
+            beginner: {
+                title: "1. 初入佛門者：以簡化繁，養氣培福",
+                painPoint: "字詞生疏、長卷追音致胸悶氣短，畏懼耗時過長。",
+                solution: "實施「三段式簡捷課誦方案」：由短篇讚偈入手，搭配《慈雲十念法》，經文採取「隨聽隨念」或定時5-10分鐘。",
+                effect: "避免傷氣受病，建立歡喜心與定課習慣，奠定信願基礎。"
+            },
+            advanced: {
+                title: "2. 老修專修者：聲氣相依，隨文入觀",
+                painPoint: "易落入機械化熟誦，有口無心，或因過度用力導致氣機上逆。",
+                solution: "運用「天台氣沉丹田法」與「隨文入觀三層透視」：誦經時吸氣綿綿、呼氣勻勻，將字音與極樂依正莊嚴觀想結合。",
+                effect: "字字句句心氣合一，由事持昇華至理持，親證念佛三昧。"
+            },
+            leader: {
+                title: "3. 法師/道場領眾者：和合梵唄，潤澤眾生",
+                painPoint: "領眾唱誦聲帶過勞、氣力透支，共修場域氣息不一。",
+                solution: "導入「腹式丹田發聲法」與「引磬節奏間隔調控」：控制每分鐘唱誦字數，預留氣機沉降停頓點。",
+                effect: "聲和韻雅，帶動道場清淨氣場，集體共振不傷氣力。"
+            },
+            unseen: {
+                title: "4. 無形眾生/幽冥界：音聲施食，法音超薦",
+                painPoint: "幽冥眾生苦趣煎迫，難以領受急促嘈雜之誦經聲。",
+                solution: "以至誠安詳之「平沉和雅音」誦經，並加持「廣大迴向心」與至誠作觀。",
+                effect: "清淨梵音能撫平幽冥眾生熱惱狂亂，令其隨音聞法，解脫苦趣。"
+            },
+            environment: {
+                title: "5. 器世間/生態環境：依報隨轉，祥和氣場",
+                painPoint: "現代環境躁動不安，獨修者家中氣場緊張。",
+                solution: "以平穩和諧之聲波頻率課誦，使清淨意念與物理聲波融入空間。",
+                effect: "依報隨正報轉，淨化居家與周遭環境聲波，帶來寧靜祥和之生態氣場。"
+            }
+        };
+
+        async function callGeminiText(userQuery, systemInstruction) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${API_KEY}`;
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined
+            };
+
+            const data = await fetchWithRetry(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            return data?.candidates?.[0]?.content?.parts?.[0]?.text || "無回應內容";
+        }
+
+        async function callGeminiStructured(userQuery, systemInstruction, schema) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${API_KEY}`;
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: schema
+                },
+                systemInstruction: systemInstruction ? { parts: [{ text: systemInstruction }] } : undefined
+            };
+
+            const data = await fetchWithRetry(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            return rawText ? JSON.parse(rawText) : null;
+        }
+
+        async function callGeminiTTS(text, voiceName = "Aoede") {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
+            const payload = {
+                contents: [{ parts: [{ text: text }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: voiceName }
+                        }
+                    }
+                }
+            };
+
+            const data = await fetchWithRetry(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const candidatePart = data?.candidates?.[0]?.content?.parts?.[0];
+            const audioData = candidatePart?.inlineData?.data;
+            const mimeType = candidatePart?.inlineData?.mimeType;
+
+            if (audioData && mimeType) {
+                let sampleRate = 24000;
+                const match = mimeType.match(/rate=(\d+)/);
+                if (match && match[1]) sampleRate = parseInt(match[1], 10);
+
+                const pcmBytes = base64ToUint8Array(audioData);
+                const pcm16 = new Int16Array(pcmBytes.buffer);
+                const wavBlob = pcm16ToWavBlob(pcm16, sampleRate);
+                return URL.createObjectURL(wavBlob);
+            } else {
+                throw new Error("無法取得語音資料");
+            }
+        }
+
+        function base64ToUint8Array(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes;
+        }
+
+        function pcm16ToWavBlob(pcm16Data, sampleRate = 24000, numChannels = 1) {
+            const buffer = new ArrayBuffer(44 + pcm16Data.length * 2);
+            const view = new DataView(buffer);
+
+            const writeString = (v, offset, str) => {
+                for (let i = 0; i < str.length; i++) v.setUint8(offset + i, str.charCodeAt(i));
+            };
+
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + pcm16Data.length * 2, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * numChannels * 2, true);
+            view.setUint16(32, numChannels * 2, true);
+            view.setUint16(34, 16, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, pcm16Data.length * 2, true);
+
+            let offset = 44;
+            for (let i = 0; i < pcm16Data.length; i++, offset += 2) {
+                view.setInt16(offset, pcm16Data[i], true);
+            }
+
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        async function callGeminiImage(promptText) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${API_KEY}`;
+            const payload = {
+                contents: [{
+                    parts: [{ text: `A peaceful, serene Buddhist Pure Land watercolor illustration of: ${promptText}. Aesthetic, soft golden light, elegant Asian art style.` }]
+                }],
+                generationConfig: {
+                    responseModalities: ['IMAGE'],
+                    imageConfig: { aspectRatio: "16:9" }
+                }
+            };
+
+            const data = await fetchWithRetry(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const inlinePart = data?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+            if (inlinePart) {
+                return `data:${inlinePart.inlineData.mimeType};base64,${inlinePart.inlineData.data}`;
+            } else {
+                throw new Error("無法生成圖像");
+            }
+        }
+
+        function setAiQuery(q) {
+            document.getElementById('aiAskInput').value = q;
+        }
+
+        async function askAITutor() {
+            const input = document.getElementById('aiAskInput').value.trim();
+            const btn = document.getElementById('askAiBtn');
+            const output = document.getElementById('aiAskOutput');
+
+            if (!input) return;
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin">⏳</span> AI 導師思考中...`;
+            output.classList.remove('hidden');
+            output.innerHTML = `<p class="text-slateMuted animate-pulse">正在調閱天台止觀調息學與淨宗祖師注疏...</p>`;
+
+            const sysPrompt = "你是一位精通漢傳佛教天台止觀調息學、印光大師與蕅益大師淨土思想的 AI 課誦導師。請以溫和、專業、具體且關懷行者身心健康的角度解答問題。簡明扼要（200字內）。";
+
+            try {
+                const answer = await callGeminiText(input, sysPrompt);
+                output.innerHTML = `<div class="font-bold text-amberDark mb-1">【AI 導師解答】</div><p class="leading-relaxed">${answer.replace(/\n/g, '<br>')}</p>`;
+            } catch (err) {
+                output.innerHTML = `<p class="text-rose-600">解答失敗：${err.message}</p>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>請 AI 導師解答</span>`;
+            }
+        }
+
+        async function generateChantingTTS() {
+            const promptSelect = document.getElementById('ttsPromptSelect').value;
+            const voiceSelect = document.getElementById('ttsVoiceSelect').value;
+            const btn = document.getElementById('ttsBtn');
+            const audioContainer = document.getElementById('ttsAudioContainer');
+            const audioPlayer = document.getElementById('ttsAudioPlayer');
+
+            let textToSay = "";
+            if (promptSelect === 'breath') {
+                textToSay = "氣沉丹田，身心放鬆。吸氣綿綿，呼氣勻勻。念自心起，聲從口出，音從耳入。";
+            } else if (promptSelect === 'praise') {
+                textToSay = "阿彌陀佛身金色，相好光明無等倫。白毫宛轉五須彌，紺目澄清四大海。";
+            } else {
+                textToSay = "晨起面西，盡一口氣念南無阿彌陀佛，十口氣不亂，信願具足，必定往生。";
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin">⏳</span> AI 語音合成中...`;
+
+            try {
+                const audioUrl = await callGeminiTTS(textToSay, voiceSelect);
+                audioPlayer.src = audioUrl;
+                audioContainer.classList.remove('hidden');
+                audioPlayer.play();
+            } catch (err) {
+                alert("語音生成失敗: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>🔊 生成並播放 AI 語音導引</span>`;
+            }
+        }
+
+        async function generatePureLandImage() {
+            const promptVal = document.getElementById('imagePromptSelect').value;
+            const btn = document.getElementById('genImgBtn');
+            const placeholder = document.getElementById('imgPlaceholderText');
+            const imgEl = document.getElementById('pureLandImage');
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin">⏳</span> AI 極樂意境繪製中...`;
+            placeholder.innerText = "Gemini AI 正在筆繪極樂莊嚴勝境...";
+            placeholder.classList.remove('hidden');
+            imgEl.classList.add('hidden');
+
+            try {
+                const imgDataUrl = await callGeminiImage(promptVal);
+                imgEl.src = imgDataUrl;
+                imgEl.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            } catch (err) {
+                placeholder.innerText = "生成失敗: " + err.message;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>🎨 生成隨文入觀意境圖</span>`;
+            }
+        }
+
+        async function generateAIPersonalizedPlan() {
+            const role = document.getElementById('userRole').value;
+            const health = document.getElementById('userHealth').value;
+            const goal = document.getElementById('userGoal').value;
+            const resBox = document.getElementById('recommendationResult');
+            const btn = document.getElementById('aiPlanBtn');
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin">⏳</span> AI 客製算力生成中...`;
+
+            const userPrompt = `行者背景 - 身份基礎: ${role}, 生理體能: ${health}, 主要目標: ${goal}。請依照《阿彌陀經要解》與天台止觀調息，為其量身定制客製化課誦與調息方案。`;
+            const sysPrompt = "你是淨土宗與天台止觀專家。輸出結構化的個人課誦建議方案。";
+
+            const schema = {
+                type: "OBJECT",
+                properties: {
+                    schemeTitle: { type: "STRING" },
+                    corePractice: { type: "STRING" },
+                    breathingTechnique: { type: "STRING" },
+                    timeAdvice: { type: "STRING" },
+                    dedicationText: { type: "STRING" }
+                },
+                required: ["schemeTitle", "corePractice", "breathingTechnique", "timeAdvice", "dedicationText"]
+            };
+
+            try {
+                const result = await callGeminiStructured(userPrompt, sysPrompt, schema);
+                if (result) {
+                    resBox.innerHTML = `
+                        <div class="flex items-center justify-between border-b border-amber-200 pb-2">
+                            <span class="font-bold text-amberDark text-base">✨ ${result.schemeTitle}</span>
+                            <span class="text-[10px] bg-amber-100 text-amberDark px-2 py-0.5 rounded font-bold">Gemini AI 專屬量身</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs mt-2">
+                            <div><span class="font-bold text-slateDark">核心修持行法：</span>${result.corePractice}</div>
+                            <div><span class="font-bold text-slateDark">天台氣機調息：</span>${result.breathingTechnique}</div>
+                            <div><span class="font-bold text-slateDark">時間與節奏：</span>${result.timeAdvice}</div>
+                            <div><span class="font-bold text-slateDark">推薦迴向文：</span>${result.dedicationText}</div>
+                        </div>
+                    `;
+                }
+            } catch (err) {
+                alert("AI 客製化方案生成失敗: " + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>✨ AI 智慧量身客製專屬方案</span>`;
+            }
+        }
+
+        let breathCanvas, breathCtx;
+        let animationId = null;
+        let currentMode = 'xi';
+        let waveOffset = 0;
+
+        function setBreathMode(mode) {
+            currentMode = mode;
+            ['chuan', 'qi', 'xi'].forEach(m => {
+                const btn = document.getElementById(`btn-${m}`);
+                if (btn) {
+                    if (m === mode) btn.classList.add('tab-btn-active');
+                    else btn.classList.remove('tab-btn-active');
+                }
+            });
+
+            const statusTitle = document.getElementById('modeStatusTitle');
+            const modeDesc = document.getElementById('breathModeDesc');
+
+            if (mode === 'chuan') {
+                if (statusTitle) {
+                    statusTitle.className = 'text-rose-400 font-bold';
+                    statusTitle.innerText = '喘相 (急迫上逆・傷氣致病)';
+                }
+                if (modeDesc) {
+                    modeDesc.innerHTML = `<span class="font-bold text-rose-600">【喘相分析】</span> 唱誦速度過快，呼吸極度急迫淺短。氣體僅留在上胸肺尖，膈肌無法下降，長期將導致胸悶、氣逆、頭暈與耗傷元氣。`;
+                }
+            } else if (mode === 'qi') {
+                if (statusTitle) {
+                    statusTitle.className = 'text-amber-400 font-bold';
+                    statusTitle.innerText = '氣相 (結滯不暢・出入未盡)';
+                }
+                if (modeDesc) {
+                    modeDesc.innerHTML = `<span class="font-bold text-amberDark">【氣相分析】</span> 換氣不完全，出入氣未盡即急於出聲。氣機結滯於胸腔，聲帶緊繃，久誦易喉嚨沙啞、心煩意亂。`;
+                }
+            } else {
+                if (statusTitle) {
+                    statusTitle.className = 'text-emerald-400 font-bold';
+                    statusTitle.innerText = '息相 (深長勻細・氣沉丹田)';
+                }
+                if (modeDesc) {
+                    modeDesc.innerHTML = `<span class="font-bold text-sageGreen">【息相分析】</span> 天台止觀最高調息狀態。綿綿密密，出入無聲，腹式呼吸引氣下沉丹田。身心和合，經聲清亮，久誦反而神氣充暢。`;
+                }
+            }
+        }
+
+        function drawBreathWave() {
+            if (!breathCanvas || !breathCtx) return;
+
+            const w = breathCanvas.width;
+            const h = breathCanvas.height;
+            const centerY = h / 2;
+
+            breathCtx.clearRect(0, 0, w, h);
+
+            breathCtx.strokeStyle = '#334155';
+            breathCtx.lineWidth = 1;
+            breathCtx.beginPath();
+            breathCtx.moveTo(0, centerY);
+            breathCtx.lineTo(w, centerY);
+            breathCtx.stroke();
+
+            breathCtx.beginPath();
+            breathCtx.lineWidth = 3;
+
+            let amplitude = 40;
+            let frequency = 0.02;
+            let speed = 0.05;
+            let strokeColor = '#10B981';
+
+            if (currentMode === 'chuan') {
+                amplitude = 60;
+                frequency = 0.08;
+                speed = 0.15;
+                strokeColor = '#F43F5E';
+            } else if (currentMode === 'qi') {
+                amplitude = 25;
+                frequency = 0.05;
+                speed = 0.08;
+                strokeColor = '#F59E0B';
+            } else {
+                amplitude = 45;
+                frequency = 0.015;
+                speed = 0.03;
+                strokeColor = '#10B981';
+            }
+
+            breathCtx.strokeStyle = strokeColor;
+
+            for (let x = 0; x < w; x++) {
+                let y = centerY + Math.sin((x * frequency) + waveOffset) * amplitude;
+                if (currentMode === 'chuan') {
+                    y += (Math.random() - 0.5) * 8;
+                }
+                if (x === 0) breathCtx.moveTo(x, y);
+                else breathCtx.lineTo(x, y);
+            }
+            breathCtx.stroke();
+
+            waveOffset += speed;
+            animationId = requestAnimationFrame(drawBreathWave);
+        }
+
+        function calculateRecommendation() {
+            const role = document.getElementById('userRole').value;
+            const health = document.getElementById('userHealth').value;
+            const resBox = document.getElementById('recommendationResult');
+
+            let title = "【基礎養氣修持方案】";
+            let text = "建議採用「三段式課誦」：讚水偈/蓮池讚 + 《阿彌陀經》核心章節（或慈雲十念法） + 簡短迴向。每誦一字，氣沉丹田，切勿急追字音。";
+
+            if (role === 'advanced' && health === 'normal') {
+                title = "【精進隨文入觀方案】";
+                text = "可全卷持誦《阿彌陀經》，採用「三句一換氣」腹式呼吸法，同時心存「極樂依正莊嚴觀」，實現聲、氣、心三密相應。";
+            } else if (health === 'weak' || health === 'busy') {
+                title = "【柔和養氣節力方案】";
+                text = "體虛或繁忙時，切忌勉強急誦長卷。建議以「十念法」或「聆聽梵唄帶誦」為主，注重吐納勻細，以養氣安神為首要。";
+            } else if (role === 'leader') {
+                title = "【領眾和合梵唄方案】";
+                text = "領眾時應適度拉長換氣停頓，運用丹田發聲而非喉嚨硬擠，帶動共修者氣息沉靜平穩。";
+            }
+
+            if (resBox) {
+                resBox.innerHTML = `
+                    <div class="font-bold text-amberDark mb-1">${title}</div>
+                    <p class="text-xs text-slateDark leading-relaxed">${text}</p>
+                `;
+            }
+        }
+
+        function switchDimension(key) {
+            const data = dimensionData[key];
+            const container = document.getElementById('dimensionContent');
+            
+            Object.keys(dimensionData).forEach(k => {
+                const tab = document.getElementById(`tab-${k}`);
+                if (tab) {
+                    if (k === key) tab.classList.add('tab-btn-active');
+                    else tab.classList.remove('tab-btn-active');
+                }
+            });
+
+            if (container && data) {
+                container.innerHTML = `
+                    <h3 class="font-bold text-slateDark text-lg border-b border-zenBorder pb-2">${data.title}</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm mt-3">
+                        <div class="p-4 bg-white rounded-xl border border-rose-200">
+                            <span class="font-bold text-rose-600 block mb-1">⚠️ 核心困境/痛點</span>
+                            <p class="text-slateDark leading-relaxed">${data.painPoint}</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-amber-200">
+                            <span class="font-bold text-amberDark block mb-1">💡 調整方案與心法</span>
+                            <p class="text-slateDark leading-relaxed">${data.solution}</p>
+                        </div>
+                        <div class="p-4 bg-white rounded-xl border border-emerald-200">
+                            <span class="font-bold text-sageGreen block mb-1">✨ 預期成效與法益</span>
+                            <p class="text-slateDark leading-relaxed">${data.effect}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function selectSutraPassage(index) {
+            const passage = sutraPassages[index];
+            const detailBox = document.getElementById('sutraDetailBox');
+
+            for (let i = 0; i < sutraPassages.length; i++) {
+                const card = document.getElementById(`passageCard-${i}`);
+                if (card) {
+                    if (i === index) card.className = "p-4 bg-zenBg rounded-xl border-2 border-amberAccent cursor-pointer hover:shadow-md transition";
+                    else card.className = "p-4 bg-zenBg rounded-xl border-2 border-transparent hover:border-zenBorder cursor-pointer hover:shadow-md transition";
+                }
+            }
+
+            if (detailBox && passage) {
+                detailBox.innerHTML = `
+                    <div class="space-y-3 border-r border-zenBorder pr-0 lg:pr-6">
+                        <span class="text-xs font-bold text-amberDark uppercase tracking-wider">《佛說阿彌陀經》原典節錄</span>
+                        <h4 class="font-bold text-slateDark text-base">${passage.title}</h4>
+                        <div class="p-4 bg-white rounded-xl border border-zenBorder text-slateDark text-sm leading-relaxed font-serif italic">
+                            ${passage.sutraText}
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <span class="text-xs font-bold text-sageGreen uppercase tracking-wider">隨文入觀與實相導引</span>
+                        <div class="p-4 bg-amber-50/70 rounded-xl border border-amber-200/60 text-xs text-slateDark leading-relaxed">
+                            ${passage.viewInstruction}
+                        </div>
+                        <div class="p-4 bg-emerald-50/70 rounded-xl border border-emerald-200/60 text-xs text-emerald-950 leading-relaxed">
+                            ${passage.mindEssence}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function initDilemmaChart() {
+            const ctx = document.getElementById('dilemmaChart');
+            if (!ctx) return;
+
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['傷氣胸悶感', '時間心理負擔', '字音追趕度', '文義觀想度', '心神凝聚度', '體能精神留存'],
+                    datasets: [
+                        {
+                            label: '傳統長卷急誦',
+                            data: [85, 90, 95, 25, 30, 20],
+                            backgroundColor: 'rgba(244, 63, 94, 0.2)',
+                            borderColor: 'rgba(244, 63, 94, 1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(244, 63, 94, 1)'
+                        },
+                        {
+                            label: '普利調息方案',
+                            data: [15, 20, 25, 90, 88, 85],
+                            backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                            borderColor: 'rgba(16, 185, 129, 1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(16, 185, 129, 1)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#E5DFD5' },
+                            grid: { color: '#E5DFD5' },
+                            pointLabels: { font: { size: 11, family: 'sans-serif' }, color: '#1E293B' },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 12 } } }
+                    }
+                }
+            });
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initDilemmaChart();
+
+            breathCanvas = document.getElementById('breathCanvas');
+            if (breathCanvas) breathCtx = breathCanvas.getContext('2d');
+
+            function resizeCanvas() {
+                if (breathCanvas && breathCanvas.parentElement) {
+                    breathCanvas.width = breathCanvas.parentElement.clientWidth - 32;
+                    breathCanvas.height = 180;
+                }
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            drawBreathWave();
+            setBreathMode('xi');
+            calculateRecommendation();
+            switchDimension('beginner');
+            selectSutraPassage(0);
+        });
+    </script>
+</body>
+</html>
