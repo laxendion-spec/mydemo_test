@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>盂蘭盆梁皇寶懺暨大蒙山施食法會 互動修持指南</title>
+    <!-- Chosen Palette: Sandalwood & Sacred Amber (檀香溫潤色調) -->
+    <!-- Application Structure Plan: 
+         1. 頂部導航與法會時空簡介 (Hero & Overview): 呈現法會核心精神、首日時序與淨壇般若哲學。
+         2. 梁皇寶懺十卷與十供養探索器 (10 Volumes Explorer & Offerings): 以互動分頁卡片展現十卷修行次第、十供養法義與獲致功德，配以 Chart.js 導覽圖表。
+         3. 大蒙山施食與六番開示階梯 (Da Meng Shan & 6 Talks): 採用階梯式互動卡片解構興慈大師六番開示之義理進程與唯心密意。
+         4. 密咒觀想與真言圖譜 (Mantra & Visualization Matrix): 可篩選式真言卡片，深入呈現七大真言與七如來聖號之觀想機制與冥陽利益。
+         5. 壇場威儀與修持規範 (Hall Etiquette): 以圖文指南解構海青行持（撩衣/接佛足）、持經法及施食止靜禁食戒規。
+         6. 跨世代參與策略與互動檢核清單 (Multi-Gen Strategy & Interactive Checklist): 包含「左提右攜」座次圖解、分齡調適建議及可點選記號的行前隨身裝備檢核清單。
+         設計理由：以此非線性、階層清晰的架構，將龐大的佛法科儀與修持規範轉化為可隨時查閱、沉浸學習與實踐指導的數位工具。
+    -->
+    <!-- Visualization & Content Choices:
+         - 10卷次第與功德導向 -> Chart.js 雷達圖/長條圖 (內在淨化 vs 法界迴向) -> Canvas rendering, maintainAspectRatio: false.
+         - 6番開示進程 -> HTML/CSS 階梯卡片 -> 點擊展開詳細心法與偈頌 -> 增進次第感。
+         - 密咒觀想矩陣 -> 分類標籤篩選 + Modal/Drawer 詳情 -> 方便快速檢索與隨文入觀。
+         - 跨世代裝備清單 -> 互動 Checkbox + 進度條 -> 提供實用行前工具。
+         - 確定無 SVG，無 Mermaid JS。使用 Unicode 符號與 HTML/CSS 幾何造型。
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sandalwood: {
+                            50: '#FAF7F2',
+                            100: '#F3EDE2',
+                            200: '#E5D8C5',
+                            300: '#D4BEA3',
+                            600: '#A37A53',
+                            800: '#5C4028',
+                            900: '#3A2616',
+                        },
+                        amberGold: {
+                            100: '#FEF3C7',
+                            500: '#F59E0B',
+                            600: '#D97706',
+                            700: '#B45309',
+                        },
+                        templeRed: {
+                            600: '#991B1B',
+                            800: '#7F1D1D',
+                        },
+                        buddhaGreen: {
+                            700: '#047857',
+                            800: '#065F46',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #FAF7F2;
+            color: #3A2616;
+        }
+        h1, h2, h3, h4, .font-serif-tc {
+            font-family: 'Noto Serif TC', serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F3EDE2;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D4BEA3;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-amberGold-100 selection:text-sandalwood-900">
+
+    <!-- 頂部導航欄 -->
+    <header class="sticky top-0 z-50 bg-sandalwood-50/95 backdrop-blur border-b border-sandalwood-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl text-amberGold-600 font-bold">☸</span>
+                    <span class="font-serif font-bold text-lg md:text-xl text-sandalwood-900 tracking-wide">梁皇寶懺暨大蒙山施食 互動指南</span>
+                </div>
+                <nav class="hidden md:flex space-x-6 text-sm font-medium text-sandalwood-800">
+                    <a href="#overview" class="hover:text-amberGold-600 transition">法會時空</a>
+                    <a href="#lianghuang" class="hover:text-amberGold-600 transition">十卷與十供養</a>
+                    <a href="#mengshan" class="hover:text-amberGold-600 transition">六番開示</a>
+                    <a href="#mantras" class="hover:text-amberGold-600 transition">密咒觀想</a>
+                    <a href="#ai-assistant" class="hover:text-amberGold-600 transition text-amberGold-700 font-bold flex items-center gap-1"><span class="px-1.5 py-0.2 bg-amberGold-600 text-white rounded text-xs">AI</span> 智慧修持</a>
+                    <a href="#etiquette" class="hover:text-amberGold-600 transition">壇場威儀</a>
+                    <a href="#multigen" class="hover:text-amberGold-600 transition">跨世代指引</a>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="p-2 text-sandalwood-800 focus:outline-none">
+                        <span class="text-xl">☰</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- 行動裝置選單 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-sandalwood-100 border-b border-sandalwood-200 px-4 pt-2 pb-4 space-y-2 text-sm font-medium">
+            <a href="#overview" class="block py-2 text-sandalwood-900">法會時空與科儀</a>
+            <a href="#lianghuang" class="block py-2 text-sandalwood-900">十卷與十供養</a>
+            <a href="#mengshan" class="block py-2 text-sandalwood-900">六番開示義理</a>
+            <a href="#mantras" class="block py-2 text-sandalwood-900">密咒觀想矩陣</a>
+            <a href="#ai-assistant" class="block py-2 text-amberGold-700 font-bold">AI 智慧修持助手</a>
+            <a href="#etiquette" class="block py-2 text-sandalwood-900">壇場威儀規範</a>
+            <a href="#multigen" class="block py-2 text-sandalwood-900">跨世代準備與檢核</a>
+        </div>
+    </header>
+
+    <!-- 主標題與法會背景 Hero Section -->
+    <section class="bg-gradient-to-b from-sandalwood-100 to-sandalwood-50 py-12 md:py-16 border-b border-sandalwood-200">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amberGold-100 text-amberGold-700 text-xs font-semibold uppercase tracking-wider mb-4 border border-amberGold-500/20">
+                <span>✦</span> 孝道救拔 ‧ 懺罪消業 ‧ 平等普施 <span>✦</span>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-serif font-extrabold text-sandalwood-900 mb-4 leading-tight">
+                盂蘭盆梁皇寶懺暨大蒙山施食法會<br><span class="text-2xl md:text-3xl text-amberGold-700 font-medium">儀軌義理、行持程序與實踐規範指南</span>
+            </h1>
+            <p class="text-base md:text-lg text-sandalwood-800 max-w-3xl mx-auto leading-relaxed mb-8">
+                農曆七月十五日為僧眾「結夏安居」圓滿之「僧自恣日」，諸佛生喜。本指南整合八日法會首日「灑淨、金剛經、引魂、大蒙山施食」至十卷懺法之完整修持邏輯，協助新進與歷練信眾以至誠心安住身心、隨文入觀。
+            </p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
+                <div class="bg-white/80 p-4 rounded-xl border border-sandalwood-200 shadow-sm">
+                    <div class="text-xs text-sandalwood-600 font-medium">法會期程</div>
+                    <div class="text-base font-bold text-sandalwood-900">國曆 8/23 ～ 8/30</div>
+                    <div class="text-xs text-amberGold-700 mt-1">歷時八日殊勝行法</div>
+                </div>
+                <div class="bg-white/80 p-4 rounded-xl border border-sandalwood-200 shadow-sm">
+                    <div class="text-xs text-sandalwood-600 font-medium">首日晨間 (08:30)</div>
+                    <div class="text-base font-bold text-sandalwood-900">灑淨 ‧ 誦金剛經</div>
+                    <div class="text-xs text-amberGold-700 mt-1">結界清淨 ‧ 般若破執</div>
+                </div>
+                <div class="bg-white/80 p-4 rounded-xl border border-sandalwood-200 shadow-sm">
+                    <div class="text-xs text-sandalwood-600 font-medium">首日午後 (14:00)</div>
+                    <div class="text-base font-bold text-sandalwood-900">引魂 ‧ 大蒙山施食</div>
+                    <div class="text-xs text-amberGold-700 mt-1">冥陽普利 ‧ 慈悲化食</div>
+                </div>
+                <div class="bg-white/80 p-4 rounded-xl border border-sandalwood-200 shadow-sm">
+                    <div class="text-xs text-sandalwood-600 font-medium">修持核心</div>
+                    <div class="text-base font-bold text-sandalwood-900">隨文入觀 ‧ 隨眾作禮</div>
+                    <div class="text-xs text-amberGold-700 mt-1">外具威儀 ‧ 內存誠敬</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
+
+        <!-- SECTION 1: 法會時空架構與科儀緣起義理 -->
+        <section id="overview" class="scroll-mt-20">
+            <div class="border-l-4 border-amberGold-600 pl-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-sandalwood-900">一、法會時空架構與科儀緣起義理</h2>
+                <p class="text-sm md:text-base text-sandalwood-800 mt-1">
+                    本區塊解析法會首日從「晨間自性除障」遞進至「午後法界利他」的完整時序邏輯。了解灑淨、金剛經、引魂與蒙山施食的內在關聯，能幫助行者在身心上建立正確的觀照方向。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 晨間儀軌 -->
+                <div class="bg-white rounded-2xl p-6 border border-sandalwood-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-sandalwood-100">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-full bg-amberGold-100 text-amberGold-700 flex items-center justify-center font-bold text-lg">晨</span>
+                            <div>
+                                <h3 class="font-serif font-bold text-lg text-sandalwood-900">08:30 灑淨與恭誦《金剛經》</h3>
+                                <p class="text-xs text-sandalwood-600">自性除障 ‧ 建立清淨結界</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 text-xs rounded bg-sandalwood-100 text-sandalwood-800 font-medium">內在自利</span>
+                    </div>
+                    <div class="space-y-4 text-sm text-sandalwood-800">
+                        <div>
+                            <h4 class="font-bold text-amberGold-700 mb-1">【灑淨結界儀軌】</h4>
+                            <p class="leading-relaxed">
+                                藉由觀世音菩薩之大悲甘露水與〈大悲咒〉之加持力，滌除道場與行者身心之一切垢穢與魔障，建立清淨無礙之聖嚴結界。
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-amberGold-700 mb-1">【恭誦《金剛般若波羅蜜經》】</h4>
+                            <p class="leading-relaxed">
+                                引導與會者以般若空觀破除「我相、人相、眾生相、壽者相」，了知罪性本空、唯心所造，為後續禮拜《梁皇寶懺》奠定「實相懺悔」之慧觀基石。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 午後儀軌 -->
+                <div class="bg-white rounded-2xl p-6 border border-sandalwood-200 shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between pb-4 mb-4 border-b border-sandalwood-100">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-full bg-templeRed-800 text-white flex items-center justify-center font-bold text-lg">午</span>
+                            <div>
+                                <h3 class="font-serif font-bold text-lg text-sandalwood-900">14:00 引魂與大蒙山施食</h3>
+                                <p class="text-xs text-sandalwood-600">悲智雙運 ‧ 廣度六道群靈</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 text-xs rounded bg-templeRed-600/10 text-templeRed-800 font-medium">外在利他</span>
+                    </div>
+                    <div class="space-y-4 text-sm text-sandalwood-800">
+                        <div>
+                            <h4 class="font-bold text-templeRed-800 mb-1">【引魂安位科儀】</h4>
+                            <p class="leading-relaxed">
+                                透過真言神咒開啟幽冥道途，安撫召請法會功德主之歷代先亡宗親、累劫冤親債主及法界無祀孤魂降臨壇場設座聽法。
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-templeRed-800 mb-1">【大蒙山施食儀軌】</h4>
+                            <p class="leading-relaxed">
+                                承接引魂召請，將有限飲食藉由密教陀羅尼與三密相應觀想化為無量甘露法食，並結合六番開示與授戒，令惡道眾生永脫飢渴、導歸極樂。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: 《梁皇寶懺》十卷結構、十供養與核心修行哲學 -->
+        <section id="lianghuang" class="scroll-mt-20">
+            <div class="border-l-4 border-amberGold-600 pl-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-sandalwood-900">二、《梁皇寶懺》十卷結構與十供養導覽</h2>
+                <p class="text-sm md:text-base text-sandalwood-800 mt-1">
+                    《梁皇寶懺》（原名《慈悲道場懺法》）共十卷四十品，歷經兩千餘次禮拜。本區塊以動態互動面板與圖表解析十卷次第如何從「自體懺悔」拓展至「代為六道禮懺迴向」，以及每卷開頭十供養之法義。
+                </p>
+            </div>
+
+            <!-- 互動分頁控制 (10卷切換) -->
+            <div class="bg-white rounded-2xl border border-sandalwood-200 shadow-sm p-6 mb-8">
+                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                    <h3 class="font-serif font-bold text-lg text-sandalwood-900">點選卷次，探索章品次第與供養表徵：</h3>
+                    <span id="volume-phase-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-amberGold-100 text-amberGold-700">階段：自內三業清洗</span>
+                </div>
+                
+                <!-- 卷次按鈕列 -->
+                <div class="flex gap-2 overflow-x-auto pb-2 custom-scrollbar mb-6" id="volume-tab-container">
+                    <!-- JS 動態生成 10 個卷次按鈕 -->
+                </div>
+
+                <!-- 卷次詳細卡片內容 -->
+                <div id="volume-detail-card" class="bg-sandalwood-50 rounded-xl p-6 border border-sandalwood-200">
+                    <!-- JS 動態填入選定卷次內容 -->
+                </div>
+            </div>
+
+            <!-- 圖表分析區 -->
+            <div class="grid md:grid-cols-2 gap-6 items-center">
+                <div class="bg-white p-6 rounded-2xl border border-sandalwood-200 shadow-sm">
+                    <h3 class="font-serif font-bold text-base md:text-lg text-sandalwood-900 mb-2 text-center">
+                        十卷懺文「自利懺罪」與「利他代懺」比重演進
+                    </h3>
+                    <p class="text-xs text-sandalwood-600 text-center mb-4">前五卷著重於個人三業清淨與解冤；後五卷擴展至代法界眾生禮懺迴向</p>
+                    <div class="chart-container">
+                        <canvas id="volumeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-sandalwood-100/70 p-6 rounded-2xl border border-sandalwood-200 space-y-4 text-sm text-sandalwood-800">
+                    <h3 class="font-serif font-bold text-lg text-sandalwood-900 flex items-center gap-2">
+                        <span class="text-amberGold-600">✦</span> 懺法核心修行哲學
+                    </h3>
+                    <p class="leading-relaxed">
+                        <strong>1. 以彌勒菩薩為開宗本尊：</strong>《梁皇寶懺》全懺以慈悲為核心，首倡拔苦與樂，禮拜千佛皆發自內心之慈悲誓願。
+                    </p>
+                    <p class="leading-relaxed">
+                        <strong>2. 嚴密之修持次第：</strong>從第1卷建立正信發菩提心、第3-4卷明因識果、第5-6卷解冤釋結，乃至第7-9卷代天道、地獄道等六道眾生禮懺，呈現大乘菩薩道「由自及他」之廣大格局。
+                    </p>
+                    <p class="leading-relaxed">
+                        <strong>3. 以物表法之十供養：</strong>香花燈塗果茶食珠寶衣，每一種供養具皆對應深層心性轉化，如「燈供養」象徵破除無明幽暗，「衣供養」象徵柔和忍辱披搭戒體。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: 大蒙山施食之密意演繹與六番開示 -->
+        <section id="mengshan" class="scroll-mt-20">
+            <div class="border-l-4 border-amberGold-600 pl-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-sandalwood-900">三、大蒙山施食之密意演繹與六番開示</h2>
+                <p class="text-sm md:text-base text-sandalwood-800 mt-1">
+                    大蒙山施食源自宋代不動法師，後經近代興慈大師增設「六番開示」。法師代佛宣法，引導幽冥群靈於心念中反觀自性、斷惡修善。點選下方進程卡片，深入體悟六番開示之義理遞進。
+                </p>
+            </div>
+
+            <!-- 六番開示互動階梯 -->
+            <div class="space-y-4" id="six-talks-container">
+                <!-- JS 動態生成六番開示卡片 -->
+            </div>
+        </section>
+
+        <!-- SECTION 4: 密咒觀想與真言體系 -->
+        <section id="mantras" class="scroll-mt-20">
+            <div class="border-l-4 border-amberGold-600 pl-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-sandalwood-900">四、施食核心真言、手印與密教觀想體系</h2>
+                <p class="text-sm md:text-base text-sandalwood-800 mt-1">
+                    蒙山施食透過陀羅尼之音聲震動與主法法師之三密相應觀想，將物質之法食化為法界無盡之妙供。請使用分類標籤探索各項真言之密意與幽冥獲益。
+                </p>
+            </div>
+
+            <!-- 分類標籤按鈕 -->
+            <div class="flex gap-2 mb-6 flex-wrap" id="mantra-filter-btns">
+                <button onclick="filterMantras('all')" class="mantra-btn px-4 py-1.5 rounded-full text-xs font-bold bg-amberGold-600 text-white shadow-sm">全部真言</button>
+                <button onclick="filterMantras('break')" class="mantra-btn px-4 py-1.5 rounded-full text-xs font-bold bg-white text-sandalwood-800 border border-sandalwood-300 hover:bg-sandalwood-100">破障與滅業</button>
+                <button onclick="filterMantras('transform')" class="mantra-btn px-4 py-1.5 rounded-full text-xs font-bold bg-white text-sandalwood-800 border border-sandalwood-300 hover:bg-sandalwood-100">開咽與變食</button>
+                <button onclick="filterMantras('precept')" class="mantra-btn px-4 py-1.5 rounded-full text-xs font-bold bg-white text-sandalwood-800 border border-sandalwood-300 hover:bg-sandalwood-100">授戒與聖號</button>
+            </div>
+
+            <!-- 真言網格卡片 -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="mantra-grid">
+                <!-- JS 動態生成真言卡片 -->
+            </div>
+        </section>
+
+        <!-- SECTION AI: AI 智慧修持助手 (Gemini LLM & TTS Integration) -->
+        <section id="ai-assistant" class="scroll-mt-20">
+            <div class="border-l-4 border-amberGold-600 pl-4 mb-6">
+                <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded-full bg-amberGold-600 text-white text-xs font-bold">Gemini AI 驅動</span>
+                    <h2 class="text-2xl md:text-3xl font-serif font-bold text-sandalwood-900">AI 智慧修持助手 ‧ 隨文觀想與迴向擬定</h2>
+                </div>
+                <p class="text-sm md:text-base text-sandalwood-800 mt-1">
+                    運用 Gemini 3 Flash、Flash Image 與 Gemini TTS 模型，為您生成個人化隨文觀想引導、境相圖像、雙聲說法語音與莊嚴迴向文。
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-sandalwood-200 shadow-md p-6">
+                <!-- AI 功能 Tab 選擇 -->
+                <div class="flex border-b border-sandalwood-200 mb-6 overflow-x-auto custom-scrollbar">
+                    <button onclick="switchAiTab('repentance')" id="ai-tab-repentance" class="ai-tab-btn py-3 px-5 text-sm font-bold border-b-2 border-amberGold-600 text-amberGold-700 whitespace-nowrap">
+                        ✨ 隨文入觀 ‧ 專屬懺悔引導
+                    </button>
+                    <button onclick="switchAiTab('image')" id="ai-tab-image" class="ai-tab-btn py-3 px-5 text-sm font-bold border-b-2 border-transparent text-sandalwood-600 hover:text-sandalwood-900 whitespace-nowrap">
+                        🎨 觀想境相 ‧ AI 聖像繪製
+                    </button>
+                    <button onclick="switchAiTab('multitts')" id="ai-tab-multitts" class="ai-tab-btn py-3 px-5 text-sm font-bold border-b-2 border-transparent text-sandalwood-600 hover:text-sandalwood-900 whitespace-nowrap">
+                        🎙️ 雙聲說法 ‧ 師徒對答音聲
+                    </button>
+                    <button onclick="switchAiTab('dedication')" id="ai-tab-dedication" class="ai-tab-btn py-3 px-5 text-sm font-bold border-b-2 border-transparent text-sandalwood-600 hover:text-sandalwood-900 whitespace-nowrap">
+                        📿 莊嚴迴向 ‧ AI 迴向文擬定
+                    </button>
+                    <button onclick="switchAiTab('qa')" id="ai-tab-qa" class="ai-tab-btn py-3 px-5 text-sm font-bold border-b-2 border-transparent text-sandalwood-600 hover:text-sandalwood-900 whitespace-nowrap">
+                        💡 法會科儀 ‧ 搜尋聯網問答
+                    </button>
+                </div>
+
+                <!-- Tab 1: 隨文入觀與懺悔引導 -->
+                <div id="ai-panel-repentance" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-sandalwood-900 mb-1">對應《梁皇寶懺》卷次：</label>
+                            <select id="ai-volume-select" class="w-full p-2.5 text-sm bg-sandalwood-50 border border-sandalwood-300 rounded-xl focus:ring-amberGold-500 focus:border-amberGold-500">
+                                <option value="卷一：歸依三寶與斷疑">卷一：歸依三寶 ‧ 斷疑發心</option>
+                                <option value="卷二：發菩提心與廣大發願">卷二：發菩提心 ‧ 大願迴向</option>
+                                <option value="卷三：明因識果與顯果報">卷三：明因識果 ‧ 顯露果報</option>
+                                <option value="卷四：剖析罪因與深切警惕">卷四：剖析罪因 ‧ 深切警惕</option>
+                                <option value="卷五：解冤釋結與斷除煩惱">卷五：解冤釋結 ‧ 斷除煩惱</option>
+                                <option value="卷六：轉化怨憎與續解冤結">卷六：轉化怨憎 ‧ 續解冤結</option>
+                                <option value="卷七：代天道諸仙禮懺報恩">卷七：自轉代懺 ‧ 報恩天人</option>
+                                <option value="卷八：代阿修羅人道與父母師長禮懺">卷八：代懺阿修羅 ‧ 報父母師長</option>
+                                <option value="卷九：代地獄餓鬼畜生三惡道禮懺">卷九：代懺三惡道 ‧ 救拔極苦</option>
+                                <option value="卷十：菩薩大迴向與六根清淨願">卷十：菩薩大迴向 ‧ 六根願圓滿</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-sandalwood-900 mb-1">您個人想反思或轉化的生活情境/心結（選填）：</label>
+                            <input type="text" id="ai-life-context" placeholder="例：與家人對立的瞋恨心、工作焦慮、對過往親人的思念與不捨..." class="w-full p-2.5 text-sm bg-sandalwood-50 border border-sandalwood-300 rounded-xl focus:ring-amberGold-500 focus:border-amberGold-500">
+                        </div>
+                    </div>
+
+                    <button onclick="generateRepentanceGuide()" id="btn-gen-repentance" class="w-full py-3 bg-amberGold-600 hover:bg-amberGold-700 text-white font-bold text-sm rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                        <span>☸</span> 生成專屬隨文入觀與發願偈
+                    </button>
+
+                    <!-- 結果輸出 -->
+                    <div id="ai-repentance-result" class="hidden bg-sandalwood-50 rounded-xl p-6 border border-sandalwood-200 space-y-4">
+                        <div class="flex items-center justify-between border-b border-sandalwood-200 pb-3">
+                            <h4 class="font-serif font-bold text-base text-sandalwood-900 flex items-center gap-2">
+                                <span class="text-amberGold-600">✦</span> AI 導引 ‧ 隨文入觀與發願偈
+                            </h4>
+                            <button id="btn-tts-repentance" onclick="playTTS('repentance')" class="px-3 py-1.5 bg-sandalwood-800 hover:bg-sandalwood-900 text-white rounded-lg text-xs font-bold flex items-center gap-1">
+                                🔊 音聲導讀 (TTS)
+                            </button>
+                        </div>
+                        <div id="ai-repentance-text" class="text-xs md:text-sm text-sandalwood-800 leading-relaxed space-y-3 font-serif">
+                            <!-- AI Content -->
+                        </div>
+                        <div id="ai-repentance-audio-container" class="hidden pt-2">
+                            <audio id="ai-repentance-audio" controls class="w-full"></audio>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 4: AI 觀想境相繪製 (Gemini 3.1 Flash Image) -->
+                <div id="ai-panel-image" class="hidden space-y-6">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-bold text-sandalwood-900 mb-1">選擇修持觀想主題：</label>
+                            <select id="ai-img-theme-select" class="w-full p-2.5 text-sm bg-sandalwood-50 border border-sandalwood-300 rounded-xl focus:ring-amberGold-500 focus:border-amberGold-500">
+                                <option value="淨土蓮池：金黃慈光照耀的西方極樂世界清淨蓮花池，安詳莊嚴">西方極樂淨土 ‧ 蓮池慈光</option>
+                                <option value="燈供養：破除無明幽暗的光明寶燈，慧光照徹十方法界">燈供養 ‧ 智慧光明破暗</option>
+                                <option value="施食甘露：觀世音菩薩甘露瓶灑下清涼法雨，撫慰六道受苦群靈">大悲甘露 ‧ 清涼普潤群靈</option>
+                                <option value="地藏誓願：地藏菩薩於無間地獄手持錫杖發大願力，金光照破幽冥">地藏願力 ‧ 金光照破地獄</option>
+                                <option value="香供養：妙香繚繞昇騰，化為百寶香雲蓋，供養十方諸佛">香供養 ‧ 香雲蓋莊嚴十方</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-sandalwood-900 mb-1">畫面比例：</label>
+                            <select id="ai-img-aspect" class="w-full p-2.5 text-sm bg-sandalwood-50 border border-sandalwood-300 rounded-xl focus:ring-amberGold-500 focus:border-amberGold-500">
+                                <option value="16:9">16:9 橫向寬螢幕</option>
+                                <option value="1:1">1:1 正方形</option>
+                                <option value="4:3">4:3 標準</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-sandalwood-900 mb-1">補充觀想細節或心境（選填）：</label>
+                        <input type="text" id="ai-img-custom-prompt" placeholder="例：加入金色蓮花、祥雲圍繞、沉靜溫潤的檀香金色調..." class="w-full p-2.5 text-sm bg-sandalwood-50 border border-sandalwood-300 rounded-xl focus:ring-amberGold-500 focus:border-amberGold-500">
+                    </div>
+
+                    <button onclick="generateVisualizationImage()" id="btn-gen-image" class="w-full py-3 bg-amberGold-600 hover:bg-amberGold-700 text-white font-bold text-sm rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                        <span>🖼️</span> 繪製專屬隨文觀想境相圖 (Gemini Flash Image)
+                    </button>
+
+                    <!-- 圖片結果顯示區 -->
+                    <div id="ai-image-result" class="hidden bg-sandalwood-50 rounded-xl p-6 border border-sandalwood-200 space-y-4 text-center">
+                        <h4 class="font-serif font-bold text-base text-sandalwood-900 flex items-center justify-center gap-2">
+                            <span class="text-amberGold-600">✦</span> 觀想境相圖 ‧ 沉靜心靈隨文入觀
+                        </h4>
+                        <div id="ai-image-container" class="flex justify-center items-center min-h-[250px] bg-white p-2 rounded-xl border border-sandalwood-200">
+                            <!-- Image insert -->
+                        </div>
+                        <p class="text-xs text-sandalwood-600">
+                            提示：可在拜懺或觀想靜坐時凝視此畫面，協助六根收攝，體會「隨文入觀」之清淨意境。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tab 5: 雙聲說法對答音聲 (Gemini 2.5 Multi-Speaker TTS) -->
+                <div id="ai-panel-multitts" class="hidden space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold text-sandalwood-900 mb-1">選擇師徒說法法義議題：</label>
+                        <select id="ai-multi-topic-select" class="w-full p-2.5 text-sm bg-sandalwood-50 border border-sandalwood-300 rounded-xl focus:ring-amberGold-500 focus:border-amberGold-500">
+                            <option value="初次拜懺跟不上唱誦與跪拜速度，該如何安住身心？">法師說法 01：拜懺跟不上節奏時如何安住心念？</option>
+                            <option value="大蒙山施食下午止靜後，為什麼嚴禁喝水進食？背後有何慈悲密意？">法師說法 02：施食止靜為何禁食？慈悲心法的秘密</option>
+                            <option value="什麼是《梁皇寶懺》中的「解冤釋結」？如何化解宿世仇懟？">法師說法 03：解冤釋結的真諦與自心轉化</option>
+                        </select>
+                    </div>
+
+                    <button onclick="generateMultiSpeakerAudio()" id="btn-gen-multitts" class="w-full py-3 bg-sandalwood-800 hover:bg-sandalwood-900 text-white font-bold text-sm rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                        <span>🎙️</span> 生成「師父與居士」雙聲說法對答音聲 (Multi-Speaker TTS)
+                    </button>
+
+                    <div id="ai-multitts-result" class="hidden bg-sandalwood-50 rounded-xl p-6 border border-sandalwood-200 space-y-4">
+                        <h4 class="font-serif font-bold text-base text-sandalwood-900 flex items-center gap-2 border-b border-sandalwood-200 pb-3">
+                            <span class="text-amberGold-600">✦</span> 雙聲說法開示劇本與音聲
+                        </h4>
+                        <div id="ai-multitts-script" class="text-xs md:text-sm text-sandalwood-800 leading-relaxed font-serif bg-white p-4 rounded-xl border border-sandalwood-200 space-y-2 max-h-[220px] overflow-y-auto custom-scrollbar">
+                            <!-- Script text -->
+                        </div>
+                        <div id="ai-multitts-audio-container" class="hidden pt-2">
+                            <audio id="ai-multitts-audio" controls class="w-full"></audio>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: AI 專屬迴向文擬定器 -->
+                <div id="ai-panel-dedication" class="hidden space-y-6">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-sandalwood-900 mb-1">迴向主要對象：</label>
+                            <select id="ai-dedi-target" class="w-full p-2.5 text-sm bg-sandalwood-50 border border-sandalwood-300 rounded-xl focus:ring-amberGold-500 focus:border-amberGold-500">
+                                <option value="歷代先亡宗親與過往親人">歷代先亡宗親 ‧ 過往親人</option>
+                                <option value="累劫冤親債主與解冤釋結">累劫冤親債主 ‧ 化解宿怨</option>
+                                <option value="現世父母與家人福壽康寧">現世父母家人 ‧ 增福延壽</option>
+                                <option value="重病或身心苦難者">患病親友 ‧ 祈求早日康復</option>
+                                <option value="法界一切有情眾生">法界一切眾生 ‧ 同登極樂</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-sandalwood-900 mb-1">特別祈願與對象姓名/稱謂（選填）：</label>
+                            <input type="text" id="ai-dedi-detail" placeholder="例：先父OOO蒙佛接引、合家平安、消除工作障礙..." class="w-full p-2.5 text-sm bg-sandalwood-50 border border-sandalwood-300 rounded-xl focus:ring-amberGold-500 focus:border-amberGold-500">
+                        </div>
+                    </div>
+
+                    <button onclick="generateDedicationPrayer()" id="btn-gen-dedi" class="w-full py-3 bg-buddhaGreen-700 hover:bg-buddhaGreen-800 text-white font-bold text-sm rounded-xl transition shadow-md flex items-center justify-center gap-2">
+                        <span>📿</span> 擬定莊嚴迴向文
+                    </button>
+
+                    <!-- 結果輸出 -->
+                    <div id="ai-dedi-result" class="hidden bg-sandalwood-50 rounded-xl p-6 border border-sandalwood-200 space-y-4">
+                        <div class="flex items-center justify-between border-b border-sandalwood-200 pb-3">
+                            <h4 class="font-serif font-bold text-base text-sandalwood-900 flex items-center gap-2">
+                                <span class="text-buddhaGreen-700">✦</span> 專屬功德迴向文
+                            </h4>
+                            <button id="btn-tts-dedi" onclick="playTTS('dedi')" class="px-3 py-1.5 bg-sandalwood-800 hover:bg-sandalwood-900 text-white rounded-lg text-xs font-bold flex items-center gap-1">
+                                🔊 音聲朗讀 (TTS)
+                            </button>
+                        </div>
+                        <div id="ai-dedi-text" class="text-xs md:text-sm text-sandalwood-900 leading-relaxed font-serif whitespace-pre-line p-4 bg-white rounded-lg border border-sandalwood-200">
+                            <!-- AI Content -->
+                        </div>
+                        <div id="ai-dedi-audio-container" class="hidden pt-2">
+                            <audio id="ai-dedi-audio" controls class="w-full"></audio>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: 法會科儀 AI 智慧問答 -->
+                <div id="ai-panel-qa" class="hidden space-y-6">
+                    <!-- 快捷問題 Chip -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-sandalwood-600">常見初學者熱門問題：</span>
+                            <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-amberGold-700">
+                                <input type="checkbox" id="ai-qa-grounding-toggle" class="w-3.5 h-3.5 rounded text-amberGold-600 focus:ring-amberGold-500" checked>
+                                <span>開啟 Google Search 聯網搜尋</span>
+                            </label>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="askQuickQa('初次參加梁皇寶懺，跟不上唱誦速度怎麼辦？')" class="px-3 py-1 bg-sandalwood-100 hover:bg-amberGold-100 text-sandalwood-800 text-xs rounded-full border border-sandalwood-300 transition">跟不上唱誦節奏？</button>
+                            <button onclick="askQuickQa('大蒙山施食下午止靜後，為什麼絕對不能喝水進食？')" class="px-3 py-1 bg-sandalwood-100 hover:bg-amberGold-100 text-sandalwood-800 text-xs rounded-full border border-sandalwood-300 transition">施食為何不能喝水進食？</button>
+                            <button onclick="askQuickQa('請搜尋2026年農曆七月十五盂蘭盆節與梁皇寶懺的科儀意義')" class="px-3 py-1 bg-sandalwood-100 hover:bg-amberGold-100 text-sandalwood-800 text-xs rounded-full border border-sandalwood-300 transition">聯網查詢盂蘭盆節由來</button>
+                            <button onclick="askQuickQa('海青與縵衣有何區別？拜佛時翻掌接佛足是什麼涵義？')" class="px-3 py-1 bg-sandalwood-100 hover:bg-amberGold-100 text-sandalwood-800 text-xs rounded-full border border-sandalwood-300 transition">海青與接佛足涵義？</button>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <input type="text" id="ai-qa-input" placeholder="請輸入您關於梁皇寶懺、大蒙山施食或儀軌禮儀的任何疑問..." class="flex-1 p-3 text-sm bg-sandalwood-50 border border-sandalwood-300 rounded-xl focus:ring-amberGold-500 focus:border-amberGold-500" onkeypress="if(event.key==='Enter') askAiQa()">
+                        <button onclick="askAiQa()" id="btn-ask-qa" class="px-6 py-3 bg-amberGold-600 hover:bg-amberGold-700 text-white font-bold text-sm rounded-xl transition shadow-md">
+                            提問 AI
+                        </button>
+                    </div>
+
+                    <!-- 對話紀錄 -->
+                    <div id="ai-qa-box" class="bg-sandalwood-50/70 rounded-xl p-4 border border-sandalwood-200 min-h-[200px] max-h-[360px] overflow-y-auto custom-scrollbar space-y-4">
+                        <div class="text-xs text-sandalwood-500 text-center py-8">
+                            您好！我是您的法會 AI 修持助手。歡迎詢問關於《梁皇寶懺》科儀義理、施食規範或行持儀軌。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: 壇場威儀規制與修持指南 -->
+        <section id="etiquette" class="scroll-mt-20">
+            <div class="border-l-4 border-amberGold-600 pl-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-sandalwood-900">五、壇場威儀規制與新進佛門修持指南</h2>
+                <p class="text-sm md:text-base text-sandalwood-800 mt-1">
+                    初入佛門參與梁皇寶懺與施食法會，首重「以相表心、收攝六根」。以下規範涵蓋海青行持、殿堂規矩及施食專屬禁忌。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- 海青與身印 -->
+                <div class="bg-white rounded-2xl p-6 border border-sandalwood-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-2 text-amberGold-700 font-bold font-serif text-lg border-b border-sandalwood-100 pb-3">
+                        <span class="text-xl">👘</span> 海青與拜頭身印
+                    </div>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-sandalwood-800 leading-relaxed">
+                        <li><strong class="text-sandalwood-900">穿著基準：</strong>穿著素雅端莊（有袖上衣、長褲）。未受菩薩戒者僅穿著黑色海青，受菩薩戒者方可搭縵衣。</li>
+                        <li><strong class="text-sandalwood-900">上下樓撩衣：</strong>上樓梯輕撩海青前片；下樓梯輕提後片，避免踩踏衣角。</li>
+                        <li><strong class="text-sandalwood-900">站立與接佛足：</strong>站立時雙手當胸合掌或放掌；五體投地時雙手掌心朝上翻掌以「接佛足」，表折伏我慢。</li>
+                    </ul>
+                </div>
+
+                <!-- 殿堂規矩 -->
+                <div class="bg-white rounded-2xl p-6 border border-sandalwood-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-2 text-buddhaGreen-700 font-bold font-serif text-lg border-b border-sandalwood-100 pb-3">
+                        <span class="text-xl">📖</span> 殿堂動線與持經
+                    </div>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-sandalwood-800 leading-relaxed">
+                        <li><strong class="text-sandalwood-900">進出門動線：</strong>靠左門左腳先入，靠右門右腳先入，嚴禁直接穿跨大殿正中央（住持位）。</li>
+                        <li><strong class="text-sandalwood-900">恭敬持經法：</strong>雙手食指貼經本兩側、中指托下緣、拇指按正面，平舉齊胸。暫不持誦時置於經架，覆以經帕。</li>
+                        <li><strong class="text-sandalwood-900">隨文入觀心法：</strong>若跟不上唱誦節奏切勿焦躁，目光專注經文，心中隨懺文發起真實懺悔心與仰慕心。</li>
+                    </ul>
+                </div>
+
+                <!-- 施食特別戒規 -->
+                <div class="bg-white rounded-2xl p-6 border border-sandalwood-200 shadow-sm space-y-3">
+                    <div class="flex items-center gap-2 text-templeRed-800 font-bold font-serif text-lg border-b border-sandalwood-100 pb-3">
+                        <span class="text-xl">🚫</span> 施食專屬嚴格戒規
+                    </div>
+                    <ul class="space-y-2.5 text-xs md:text-sm text-sandalwood-800 leading-relaxed">
+                        <li><strong class="text-sandalwood-900">止靜禁食戒規：</strong>下午施食佛事於休息止靜後及法師登座施食正式開始起，壇場內所有人等<span class="text-templeRed-800 font-bold">均不得飲用茶水或進食</span>。</li>
+                        <li><strong class="text-sandalwood-900">戒規原理：</strong>施食期間法界鬼神聚集，若在場飲食易引發餓鬼道眾生之猛烈慳貪瞋恨與飢渴劇苦。</li>
+                        <li><strong class="text-sandalwood-900">供品熟食原則：</strong>靈位前薦食與施食菜餚必須烹煮熟透具備滋味，不得進供生菜冷水，彰顯慈悲。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: 跨世代參與策略與裝備檢核 TOOL -->
+        <section id="multigen" class="scroll-mt-20">
+            <div class="border-l-4 border-amberGold-600 pl-4 mb-6">
+                <h2 class="text-2xl md:text-3xl font-serif font-bold text-sandalwood-900">六、跨世代參與策略與互動行前檢核工具</h2>
+                <p class="text-sm md:text-base text-sandalwood-800 mt-1">
+                    家庭多世代共同參與法會是落實孝道精神的殊勝契機。透過「左提右攜」座次安排與分齡調適，讓長者安住、學童啟蒙、中壯年領眾。
+                </p>
+            </div>
+
+            <!-- 左提右攜 座次圖解 -->
+            <div class="bg-sandalwood-100/80 rounded-2xl p-6 border border-sandalwood-200 mb-8">
+                <h3 class="font-serif font-bold text-lg text-sandalwood-900 text-center mb-2">【左提右攜】家庭團體座次配置示意圖</h3>
+                <p class="text-xs text-sandalwood-600 text-center mb-6">中壯年居中，便於隨時照顧左側長者與右側學童之翻經與身心狀態</p>
+                
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4 max-w-3xl mx-auto">
+                    <!-- 長者 -->
+                    <div class="bg-white p-4 rounded-xl border border-sandalwood-300 text-center flex-1 w-full shadow-sm">
+                        <span class="text-2xl mb-1 block">👵</span>
+                        <div class="font-bold text-sandalwood-900 text-sm">70歲長者</div>
+                        <div class="text-xs text-sandalwood-600 mt-1">體力第一 ‧ 靠背座椅<br>隨喜合掌 ‧ 量力禮拜</div>
+                    </div>
+                    <!-- 連接箭頭 -->
+                    <div class="text-amberGold-600 font-bold text-xl hidden md:block">↔</div>
+                    <!-- 中壯年 -->
+                    <div class="bg-amberGold-100 p-4 rounded-xl border-2 border-amberGold-500 text-center flex-1 w-full shadow-sm">
+                        <span class="text-2xl mb-1 block">🧑</span>
+                        <div class="font-bold text-sandalwood-900 text-sm">40-50歲中堅</div>
+                        <div class="text-xs text-amberGold-800 mt-1 font-medium">護持樞紐 ‧ 領眾唱誦<br>協助翻經 ‧ 精進拜懺</div>
+                    </div>
+                    <!-- 連接箭頭 -->
+                    <div class="text-amberGold-600 font-bold text-xl hidden md:block">↔</div>
+                    <!-- 學童 -->
+                    <div class="bg-white p-4 rounded-xl border border-sandalwood-300 text-center flex-1 w-full shadow-sm">
+                        <span class="text-2xl mb-1 block">🧒</span>
+                        <div class="font-bold text-sandalwood-900 text-sm">11歲學童</div>
+                        <div class="text-xs text-sandalwood-600 mt-1">行前教育 ‧ 靜態繪本<br>殿堂肅靜 ‧ 觀察體驗</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 互動式行前裝備檢核清單 Tool -->
+            <div class="bg-white rounded-2xl p-6 border border-sandalwood-200 shadow-sm">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 mb-6 border-b border-sandalwood-100 gap-4">
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-sandalwood-900">法會行前隨身物品互動檢核表</h3>
+                        <p class="text-xs text-sandalwood-600">點選核選方格，即時確認全家準備進度：</p>
+                    </div>
+                    <!-- 進度條 -->
+                    <div class="w-full sm:w-48 bg-sandalwood-100 rounded-full h-4 overflow-hidden border border-sandalwood-200">
+                        <div id="checklist-progress" class="bg-amberGold-600 h-full w-0 transition-all duration-300 text-[10px] text-white flex items-center justify-center font-bold">0%</div>
+                    </div>
+                </div>
+
+                <!-- 分齡切換 Tab -->
+                <div class="flex gap-2 mb-4 border-b border-sandalwood-200 pb-2">
+                    <button onclick="switchChecklistTab('senior')" id="tab-senior" class="tab-checklist-btn px-4 py-2 text-xs md:text-sm font-bold rounded-t-lg bg-amberGold-600 text-white">70歲長者項目</button>
+                    <button onclick="switchChecklistTab('adult')" id="tab-adult" class="tab-checklist-btn px-4 py-2 text-xs md:text-sm font-bold rounded-t-lg bg-sandalwood-100 text-sandalwood-700">40-50歲中堅項目</button>
+                    <button onclick="switchChecklistTab('child')" id="tab-child" class="tab-checklist-btn px-4 py-2 text-xs md:text-sm font-bold rounded-t-lg bg-sandalwood-100 text-sandalwood-700">11歲學童項目</button>
+                    <button onclick="switchChecklistTab('common')" id="tab-common" class="tab-checklist-btn px-4 py-2 text-xs md:text-sm font-bold rounded-t-lg bg-sandalwood-100 text-sandalwood-700">全員通用項目</button>
+                </div>
+
+                <!-- 檢核項目列表 -->
+                <div id="checklist-items-container" class="space-y-3">
+                    <!-- JS 動態渲染檢核項 -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 頁尾 -->
+    <footer class="bg-sandalwood-900 text-sandalwood-200 py-12 border-t border-sandalwood-800 mt-16">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+            <div class="text-2xl text-amberGold-500">☸</div>
+            <h3 class="font-serif text-lg text-white font-bold">願以此功德 普及於一切 我等與眾生 皆共成佛道</h3>
+            <p class="text-xs text-sandalwood-400 max-w-2xl mx-auto leading-relaxed">
+                本互動指南依據《盂蘭盆梁皇寶懺暨大蒙山施食法會研析報告》編製。祈願陽上眷屬福慧增長、業障消除，過往先亡同登九品蓮邦。
+            </p>
+            <div class="text-[11px] text-sandalwood-500 pt-4 border-t border-sandalwood-800">
+                盂蘭盆梁皇寶懺法會修持指南 ‧ 數位互動版
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Gemini API Helpers & Exponential Backoff
+        async function fetchGeminiWithRetry(apiUrl, payload, retries = 3, delay = 1000) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    if (response.ok) {
+                        return await response.json();
+                    }
+                    if (response.status === 429 || response.status >= 500) {
+                        // Retryable throttling or server error
+                    } else {
+                        const errText = await response.text();
+                        throw new Error(`API error (${response.status}): ${errText}`);
+                    }
+                } catch (e) {
+                    if (i === retries - 1) throw e;
+                }
+                await new Promise(res => setTimeout(res, delay * Math.pow(2, i)));
+            }
+        }
+
+        // Gemini 3 Flash Text Generator (with optional Google Search Grounding)
+        async function generateGeminiText(prompt, systemInstruction = "", useGrounding = false) {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+            if (systemInstruction) {
+                payload.systemInstruction = {
+                    parts: [{ text: systemInstruction }]
+                };
+            }
+            if (useGrounding) {
+                payload.tools = [{ "google_search": {} }];
+            }
+
+            const result = await fetchGeminiWithRetry(apiUrl, payload);
+            const candidate = result.candidates?.[0];
+            if (candidate && candidate.content?.parts?.[0]?.text) {
+                let text = candidate.content.parts[0].text;
+                // Append grounding sources if present
+                const sources = candidate.groundingMetadata?.groundingAttributions
+                    ?.map(a => a.web?.uri ? `<a href="${a.web.uri}" target="_blank" class="underline text-amberGold-700 font-bold">${a.web.title || a.web.uri}</a>` : '')
+                    .filter(Boolean);
+                if (sources && sources.length > 0) {
+                    text += `<br><br><div class="text-[11px] text-sandalwood-600 bg-sandalwood-100 p-2 rounded mt-2"><strong>🔍 搜尋引用來源：</strong> ${sources.join(' | ')}</div>`;
+                }
+                return text;
+            }
+            throw new Error("無法取得 AI 回覆，請稍後重試。");
+        }
+
+        // Gemini 3.1 Flash Image Generator
+        async function generateGeminiImage(userPrompt, aspectRatio = "16:9") {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{
+                    role: 'user',
+                    parts: [{ text: userPrompt }]
+                }],
+                generationConfig: {
+                    responseModalities: ['IMAGE'],
+                    imageConfig: { aspectRatio: aspectRatio }
+                }
+            };
+
+            const result = await fetchGeminiWithRetry(apiUrl, payload);
+            const part = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+            if (part && part.inlineData?.data) {
+                return `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+            }
+            throw new Error("影像生成失敗，請稍後再試。");
+        }
+
+        // Gemini 2.5 Multi-Speaker TTS Generator
+        async function generateMultiSpeakerTTS(scriptText) {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{
+                    parts: [{ text: `TTS the following conversation between 法師 and 居士:\n${scriptText}` }]
+                }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        multiSpeakerVoiceConfig: {
+                            speakerVoiceConfigs: [
+                                { speaker: "法師", voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } },
+                                { speaker: "居士", voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } } }
+                            ]
+                        }
+                    }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            const result = await fetchGeminiWithRetry(apiUrl, payload);
+            const part = result?.candidates?.[0]?.content?.parts?.[0];
+            const audioData = part?.inlineData?.data;
+            const mimeType = part?.inlineData?.mimeType;
+
+            if (audioData && mimeType) {
+                let sampleRate = 24000;
+                const match = mimeType.match(/rate=(\d+)/);
+                if (match) sampleRate = parseInt(match[1], 10);
+                
+                const pcmData = base64ToArrayBuffer(audioData);
+                const pcm16 = new Int16Array(pcmData);
+                const wavBlob = pcmToWav(pcm16, sampleRate);
+                return URL.createObjectURL(wavBlob);
+            }
+            throw new Error("雙聲語音生成失敗");
+        }
+
+        // Gemini 2.5 Single Speaker TTS Generator
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // --- AI UI INTERACTION LOGIC ---
+        function switchAiTab(tab) {
+            ['repentance', 'image', 'multitts', 'dedication', 'qa'].forEach(t => {
+                const panel = document.getElementById(`ai-panel-${t}`);
+                if (panel) panel.classList.add('hidden');
+                const btn = document.getElementById(`ai-tab-${t}`);
+                if (btn) btn.className = "ai-tab-btn py-3 px-5 text-sm font-bold border-b-2 border-transparent text-sandalwood-600 hover:text-sandalwood-900 whitespace-nowrap";
+            });
+
+            const targetPanel = document.getElementById(`ai-panel-${tab}`);
+            if (targetPanel) targetPanel.classList.remove('hidden');
+            const activeBtn = document.getElementById(`ai-tab-${tab}`);
+            if (activeBtn) activeBtn.className = "ai-tab-btn py-3 px-5 text-sm font-bold border-b-2 border-amberGold-600 text-amberGold-700 whitespace-nowrap";
+        }
+
+        async function generateVisualizationImage() {
+            const theme = document.getElementById('ai-img-theme-select').value;
+            const aspect = document.getElementById('ai-img-aspect').value;
+            const customDetail = document.getElementById('ai-img-custom-prompt').value.trim();
+            const btn = document.getElementById('btn-gen-image');
+            const resultBox = document.getElementById('ai-image-result');
+            const imgContainer = document.getElementById('ai-image-container');
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin">⏳</span> AI 繪圖中，請稍候（約5-10秒）...`;
+            resultBox.classList.remove('hidden');
+            imgContainer.innerHTML = `<div class="p-8 text-center text-sandalwood-600"><span class="animate-pulse text-2xl block mb-2">🎨</span>正為您構建「${theme.split('：')[0]}」之清淨觀想境相...</div>`;
+
+            const fullPrompt = `Traditional East Asian Buddhist art style, peaceful, serene, divine atmosphere, highly detailed: ${theme}. Additional details: ${customDetail}. Warm gold and sandalwood color palette, spiritual enlightenment, high quality visual artwork for meditation.`;
+
+            try {
+                const imgDataUrl = await generateGeminiImage(fullPrompt, aspect);
+                imgContainer.innerHTML = `<img src="${imgDataUrl}" alt="隨文觀想境相圖" class="rounded-lg shadow-md max-h-[480px] w-auto object-contain">`;
+            } catch (err) {
+                imgContainer.innerHTML = `<span class="text-templeRed-800 p-4">繪製失敗：${err.message}</span>`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>🖼️</span> 繪製專屬隨文觀想境相圖 (Gemini Flash Image)`;
+            }
+        }
+
+        async function generateMultiSpeakerAudio() {
+            const topic = document.getElementById('ai-multi-topic-select').value;
+            const btn = document.getElementById('btn-gen-multitts');
+            const resultBox = document.getElementById('ai-multitts-result');
+            const scriptBox = document.getElementById('ai-multitts-script');
+            const audioContainer = document.getElementById('ai-multitts-audio-container');
+            const audioPlayer = document.getElementById('ai-multitts-audio');
+
+            btn.disabled = true;
+            btn.innerHTML = `<span class="animate-spin">⏳</span> 正在請益法師擬定劇本與合成雙聲語音...`;
+            resultBox.classList.remove('hidden');
+            audioContainer.classList.add('hidden');
+            scriptBox.innerText = "正在撰寫法師與居士對答開示內容...";
+
+            // Draft multi-speaker script
+            const scriptPrompt = `請撰寫一段「法師」與「居士」關於「${topic}」的佛法問答對話劇本（約150字）。
+格式要求：
+居士：[居士發問]
+法師：[法師慈悲解答]
+居士：[居士悟道感言]
+法師：[法師叮嚀]
+語氣溫和親切、具備佛教智慧。`;
+
+            try {
+                const scriptText = await generateGeminiText(scriptPrompt, "你是一位佛教法師，正與初入佛門的居士對話解惑。");
+                scriptBox.innerText = scriptText;
+
+                // Call Multi-Speaker TTS
+                const audioUrl = await generateMultiSpeakerTTS(scriptText);
+                audioPlayer.src = audioUrl;
+                audioContainer.classList.remove('hidden');
+                audioPlayer.play();
+            } catch (err) {
+                scriptBox.innerText += `\n(音聲生成提示: ${err.message})`;
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<span>🎙️</span> 生成「師父與居士」雙聲說法對答音聲 (Multi-Speaker TTS)`;
+            }
+        }
+
+        async function askAiQa() {
+            const inputEl = document.getElementById('ai-qa-input');
+            const query = inputEl.value.trim();
+            if (!query) return;
+
+            const useGrounding = document.getElementById('ai-qa-grounding-toggle')?.checked || false;
+
+            appendQaMessage('user', query);
+            inputEl.value = '';
+
+            const loadingId = appendQaMessage('bot', `<span class="animate-spin">⏳</span> ${useGrounding ? '已啟用 Google Search 聯網搜尋中...' : '正在檢索佛法科儀典籍思考中...'}`);
+
+            const prompt = `使用者詢問關於梁皇寶懺或大蒙山施食法會的問題：\n「${query}」\n\n請以親切、慈悲且條理清晰的方式回答，解答其疑惑，給予正向安心的佛法引導。`;
+            const sysInst = "你是「梁皇寶懺暨大蒙山施食法會」的智慧諮詢助手，熟悉梁皇寶懺十卷義理、大蒙山施食六番開示、密咒觀想與壇場威儀規範。回答請簡潔扼要、親切專業。";
+
+            try {
+                const answer = await generateGeminiText(prompt, sysInst, useGrounding);
+                updateQaMessage(loadingId, answer.replace(/\n/g, '<br>'));
+            } catch (err) {
+                updateQaMessage(loadingId, `<span class="text-templeRed-800">抱歉，目前無法處理您的問題：${err.message}</span>`);
+            }
+        }
+
+        function askQuickQa(q) {
+            document.getElementById('ai-qa-input').value = q;
+            askAiQa();
+        }
+
+        function appendQaMessage(role, text) {
+            const box = document.getElementById('ai-qa-box');
+            const msgId = 'msg-' + Date.now();
+            const div = document.createElement('div');
+            div.id = msgId;
+            div.className = `flex ${role === 'user' ? 'justify-end' : 'justify-start'}`;
+
+            const bubbleClass = role === 'user'
+                ? 'bg-amberGold-600 text-white rounded-2xl rounded-tr-none px-4 py-2.5 text-xs md:text-sm max-w-[85%]'
+                : 'bg-white border border-sandalwood-200 text-sandalwood-900 rounded-2xl rounded-tl-none px-4 py-2.5 text-xs md:text-sm max-w-[85%] shadow-sm';
+
+            div.innerHTML = `<div class="${bubbleClass}">${text}</div>`;
+            box.appendChild(div);
+            box.scrollTop = box.scrollHeight;
+            return msgId;
+        }
+
+        function updateQaMessage(msgId, newHtml) {
+            const msgEl = document.getElementById(msgId);
+            if (msgEl) {
+                msgEl.querySelector('div').innerHTML = newHtml;
+            }
+        }
+
+        // --- 1. 十卷與十供養 資料庫 ---
+        const volumeData = [
+            {
+                vol: 1,
+                title: "卷一：歸依三寶 ‧ 斷疑發心",
+                phase: "自內三業清洗",
+                offering: "香供養",
+                symbol: "戒香真薰、捨己利人、傳達法界感應",
+                merit: "心靈安穩、身體潔淨、三業清淨、多聞妙法",
+                chapters: ["歸依三寶品", "斷疑品", "懺悔品"],
+                desc: "以歸依三寶為首，確立生死依靠；次掃三世因果之疑，復發露前愆，奠定懺悔根基。",
+                selfRatio: 90, altRatio: 10
+            },
+            {
+                vol: 2,
+                title: "卷二：發菩提心 ‧ 大願迴向",
+                phase: "自內三業清洗",
+                offering: "花供養",
+                symbol: "微妙萬行、開花結果、莊嚴佛果菩提",
+                merit: "人緣極佳、見者歡喜、身常香潔、歡喜真理",
+                chapters: ["發菩提心品", "發願品", "發迴向心品"],
+                desc: "立下二十大願與廣大迴向心，將修善培福之功德導向無上菩提正因。",
+                selfRatio: 85, altRatio: 15
+            },
+            {
+                vol: 3,
+                title: "卷三：明因識果 ‧ 顯露果報",
+                phase: "自內三業清洗",
+                offering: "燈供養",
+                symbol: "破除無明幽暗、光明智慧照徹十方",
+                merit: "眼睛明亮、事業順利、獲正知見、智慧圓滿",
+                chapters: ["顯果報品"],
+                desc: "詳細剖析六道輪迴之果報苦難，先陳其果以警畏，後明其因以止惡，深植出離心。",
+                selfRatio: 80, altRatio: 20
+            },
+            {
+                vol: 4,
+                title: "卷四：剖析罪因 ‧ 深切警惕",
+                phase: "自內三業清洗",
+                offering: "塗（水）供養",
+                symbol: "悲憫甘露、撫慰熱惱、平等和合無差",
+                merit: "身心清淨、相貌莊嚴、遠離煩惱、尊貴自在",
+                chapters: ["產生罪惡要因品", "出地獄品"],
+                desc: "深入檢視殺生、食肉、不孝、飲酒等造罪之由，令行者徹底斷絕惡因。",
+                selfRatio: 75, altRatio: 25
+            },
+            {
+                vol: 5,
+                title: "卷五：解冤釋結 ‧ 斷除煩惱",
+                phase: "自內三業清洗",
+                offering: "果供養",
+                symbol: "精勤向道、有始有終、圓成出世聖果",
+                merit: "圓滿無缺、不受災害、受諸喜悅、早證佛果",
+                chapters: ["解冤釋結品"],
+                desc: "針對多生累劫所結之仇懟，至誠向一切冤親債主求哀懺悔，化宿世惡緣為法緣。",
+                selfRatio: 65, altRatio: 35
+            },
+            {
+                vol: 6,
+                title: "卷六：續解冤結 ‧ 轉化怨憎",
+                phase: "自內三業清洗",
+                offering: "茶供養",
+                symbol: "惺惺寂寂、警策昏沉、常省起心動念",
+                merit: "口齒清香、永離渴愛、安樂少病、具諸福報",
+                chapters: ["解冤釋結品（續）"],
+                desc: "持續深入轉化貪瞋癡繫縛，斷除怨憎會苦，自心獲得徹底解脫。",
+                selfRatio: 60, altRatio: 40
+            },
+            {
+                vol: 7,
+                title: "卷七：自轉代懺 ‧ 報恩天人",
+                phase: "法界代懺與迴向",
+                offering: "食供養",
+                symbol: "禪悅法喜、道德莊嚴、以法養身養德",
+                merit: "力大無窮、壽命綿長、眾人愛樂、辯才無礙",
+                chapters: ["自慶品", "警緣三寶品", "代為天道禮懺品", "代為諸仙/梵王禮懺品"],
+                desc: "心量轉為大悲代懺，分別為天道、諸仙、梵王等代為禮佛，報答護法與三寶深恩。",
+                selfRatio: 35, altRatio: 65
+            },
+            {
+                vol: 8,
+                title: "卷八：代懺阿修羅 ‧ 報父母師長",
+                phase: "法界代懺與迴向",
+                offering: "珠供養",
+                symbol: "摩尼寶珠、持戒精進、破除慳吝貪愛",
+                merit: "相貌莊嚴、威儀美好、破除慳貪、速證聖果",
+                chapters: ["代為阿修羅/人道禮懺品", "代為父母/師長/國王禮懺品"],
+                desc: "代阿修羅與人道眾生求哀，並至誠為父母、師長、國王等至親尊長禮佛報恩。",
+                selfRatio: 25, altRatio: 75
+            },
+            {
+                vol: 9,
+                title: "卷九：代懺三惡道 ‧ 救拔極苦",
+                phase: "法界代懺與迴向",
+                offering: "寶供養",
+                symbol: "甚深法寶、般若智慧、永恆不滅法身",
+                merit: "消除業障、心得安寧、福壽綿長、永離惡道",
+                chapters: ["代為地獄/餓鬼/畜生道禮懺品", "為六道發願品"],
+                desc: "將慈悲心伸展至最深黑暗，代地獄、餓鬼、畜生三惡道極苦眾生禮佛求拔。",
+                selfRatio: 15, altRatio: 85
+            },
+            {
+                vol: 10,
+                title: "卷十：菩薩大迴向 ‧ 六根願圓滿",
+                phase: "法界代懺與迴向",
+                offering: "衣供養",
+                symbol: "柔和忍辱、披搭戒體、出離生死苦海",
+                merit: "所有安全、不遭破壞、色澤柔美、具諸財寶",
+                chapters: ["菩薩迴向品", "發六根願品", "囑累品"],
+                desc: "總攝全懺功德行大迴向，發「眼耳鼻舌身意」六根清淨願，將眾生囑累於諸大菩薩。",
+                selfRatio: 10, altRatio: 90
+            }
+        ];
+
+        // --- 2. 大蒙山六番開示 資料 ---
+        const sixTalksData = [
+            {
+                step: "第一番",
+                title: "直示唯心法門",
+                verse: "若人欲了知，三世一切佛，應觀法界性，一切唯心造。",
+                content: "法師宣說法界本無世界眾生與苦樂果報，只因一念無明妄動而十界條分。藉華嚴破地獄偈，令幽冥眾生悟得萬法唯心之理，化解互見互恨之執著。"
+            },
+            {
+                step: "第二番",
+                title: "勸導投誠皈依",
+                verse: "皈依佛兩足尊，皈依法離欲尊，皈依僧眾中尊。",
+                content: "宣說三寶之難遭難遇與無上功德，猶如靈丹妙藥能蠲除百病，引導群靈各發至誠長跪合掌，投誠皈依三寶，種下菩提正因。"
+            },
+            {
+                step: "第三番",
+                title: "引導發露懺悔",
+                verse: "往昔所造諸惡業，皆由無始貪瞋癡，從身語意之所生，一切業障皆懺悔。",
+                content: "策勵群靈思惟無始劫來由身口意造作之貪瞋癡三毒惡業，依普賢菩薩懺悔偈隨音發露求哀，滌除罪垢。"
+            },
+            {
+                step: "第四番",
+                title: "策發四弘誓願",
+                verse: "眾生無邊誓願度，煩惱無盡誓願斷，法門無量誓願學，佛道無上誓願成。",
+                content: "示明「罪從心起將心懺，心若滅時罪亦妄」之理，引領群靈立下事願與理願兩種四弘誓願，奠定行道根基。"
+            },
+            {
+                step: "第五番",
+                title: "勸勉廣修六度萬行",
+                verse: "自利上三業清淨，利他上廣修布施、持戒、忍辱、精進、禪定、智慧。",
+                content: "指出願力深廣如海，告誡群靈歷劫定業未盡，必須在自利上三業清淨，在利他上廣修六度萬行，圓融自他功德。"
+            },
+            {
+                step: "第六番",
+                title: "普結迴向導歸極樂",
+                verse: "願生西方淨土中，九品蓮華為父母，花開見佛悟無生，不退菩薩為伴侶。",
+                content: "再次示明唯心淨土妙理，宣說施食法門能令群靈同入清涼，並以吉祥偈與淨土迴向，祈請佛力加被，同登九品蓮台。"
+            }
+        ];
+
+        // --- 3. 密咒觀想矩陣 資料 ---
+        const mantraData = [
+            {
+                id: "mantra1",
+                category: "break",
+                name: "破地獄真言",
+                phrase: "唵 伽囉帝耶娑婆訶",
+                vis: "觀想金剛光明照破無間地獄鐵城，幽冥障礙消除。",
+                benefit: "地獄門開，受苦罪魂解脫拘禁出離幽暗。"
+            },
+            {
+                id: "mantra2",
+                category: "break",
+                name: "滅定業真言",
+                phrase: "唵 鉢囉末隣陀寧娑婆訶",
+                vis: "觀現觀世音/地藏菩薩願力光明，注照六道群靈神識。",
+                benefit: "消除無始以來堅固之宿世定業與業障重罪。"
+            },
+            {
+                id: "mantra3",
+                category: "transform",
+                name: "開咽喉真言",
+                phrase: "唵 步步底哩伽哆哩怛哆誐哆耶",
+                vis: "觀想餓鬼如針細之咽喉豁然開通，猛火停燒，轉清涼喜樂。",
+                benefit: "解除咽喉火燒劇苦，得通暢受納飲食甘露。"
+            },
+            {
+                id: "mantra4",
+                category: "transform",
+                name: "變食真言",
+                phrase: "曩謨薩嚩怛他誐哆嚩嚕枳帝 唵 三跋囉三跋囉 吽",
+                vis: "觀想盤中一粒米、一滴水化為七，七復化七，重重無盡充塞虛空。",
+                benefit: "法食遍滿虛空，飢虛之眾皆得飽滿無礙。"
+            },
+            {
+                id: "mantra5",
+                category: "transform",
+                name: "甘露水真言",
+                phrase: "曩謨蘇嚕婆耶怛他誐哆耶... 唵 蘇嚕蘇嚕 鉢囉蘇嚕 鉢囉蘇嚕 娑婆訶",
+                vis: "觀想淨水化為清涼甘露法雨，廣大如海，遍灑十方孤魂頂門。",
+                benefit: "洗滌熱惱塵垢，六根清淨，獲無上身心安樂。"
+            },
+            {
+                id: "mantra6",
+                category: "precept",
+                name: "授三昧耶戒真言",
+                phrase: "唵 三昧耶薩埵錽",
+                vis: "觀想六道群靈同沐金剛光明，受持清淨戒體，身同菩薩。",
+                benefit: "轉鬼趣凡質為佛子菩薩身，心得淨化解脫。"
+            },
+            {
+                id: "mantra7",
+                category: "precept",
+                name: "稱念七如來聖號",
+                phrase: "寶勝、多寶、妙色身、廣博身、離怖畏、甘露王、阿彌陀如來",
+                vis: "觀想七尊如來佛光普照，依如來本願拔除鬼道諸苦。",
+                benefit: "捨離醜陋殘疾、具足圓滿妙相、超生極樂蓮邦。"
+            }
+        ];
+
+        // --- 4. 裝備檢核清單 資料 ---
+        const checklistData = {
+            senior: [
+                { id: "s1", text: "黑色海青（或準備寬鬆素雅端莊衣物）", done: false },
+                { id: "s2", text: "寬鬆長褲與防滑保暖厚襪", done: false },
+                { id: "s3", text: "保暖披肩 / 薄外套（殿堂冷氣較強）", done: false },
+                { id: "s4", text: "隨身必備個人用藥", done: false },
+                { id: "s5", text: "保溫水壺（施食止靜前補充水分完畢）", done: false },
+                { id: "s6", text: "向義工索取靠背椅子（坐椅隨喜問訊）", done: false }
+            ],
+            adult: [
+                { id: "a1", text: "黑色海青 / 縵衣（受菩薩戒者）", done: false },
+                { id: "a2", text: "老花眼鏡 / 筆記本 / 經書籤條", done: false },
+                { id: "a3", text: "個人環保水杯與擦汗手帕", done: false },
+                { id: "a4", text: "確認手機靜音 / 關機設置", done: false },
+                { id: "a5", text: "協助長者與學童準備隨身物品", done: false },
+                { id: "a6", text: "熟悉『隨文入觀』與五體投地接佛足身印", done: false }
+            ],
+            child: [
+                { id: "c1", text: "典雅有袖上衣、長褲與軟底包鞋", done: false },
+                { id: "c2", text: "靜態繪本 / 無聲畫冊 / 彩色鉛筆（非電子產品）", done: false },
+                { id: "c3", text: "小型水壺與個人清潔面紙", done: false },
+                { id: "c4", text: "行前教育：說明法會為祖先祈福之莊嚴性", done: false },
+                { id: "c5", text: "提醒殿堂止語與安靜觀察施食儀軌", done: false }
+            ],
+            common: [
+                { id: "m1", text: "嚴禁穿著短褲、短裙、背心或拖鞋", done: false },
+                { id: "m2", text: "全員手機於入殿前關機或靜音", done: false },
+                { id: "m3", text: "牢記下午施食止靜後【嚴禁殿內飲食飲水】戒規", done: false },
+                { id: "m4", text: "保持心態恭敬慈悲，隨眾問訊禮拜", done: false }
+            ]
+        };
+
+        // --- INITIALIZATION ---
+        let volumeChartInstance = null;
+        let currentChecklistTab = 'senior';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initVolumeTabs();
+            renderVolumeDetail(0);
+            initVolumeChart();
+            renderSixTalks();
+            renderMantras('all');
+            renderChecklist('senior');
+
+            // 行動選單 Toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+        });
+
+        // --- 1. 十卷與十供養 邏輯 ---
+        function initVolumeTabs() {
+            const container = document.getElementById('volume-tab-container');
+            container.innerHTML = '';
+            volumeData.forEach((item, index) => {
+                const btn = document.createElement('button');
+                btn.className = `volume-tab-btn px-4 py-2 rounded-lg text-xs md:text-sm font-bold whitespace-nowrap transition border ${
+                    index === 0 
+                    ? 'bg-amberGold-600 text-white border-amberGold-600' 
+                    : 'bg-white text-sandalwood-800 border-sandalwood-300 hover:bg-sandalwood-100'
+                }`;
+                btn.innerText = `卷${getChineseNum(item.vol)}：${item.offering.substring(0,2)}`;
+                btn.onclick = () => selectVolume(index);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectVolume(index) {
+            // Update tab styles
+            const btns = document.querySelectorAll('.volume-tab-btn');
+            btns.forEach((btn, idx) => {
+                if (idx === index) {
+                    btn.className = 'volume-tab-btn px-4 py-2 rounded-lg text-xs md:text-sm font-bold whitespace-nowrap transition border bg-amberGold-600 text-white border-amberGold-600 shadow-sm';
+                } else {
+                    btn.className = 'volume-tab-btn px-4 py-2 rounded-lg text-xs md:text-sm font-bold whitespace-nowrap transition border bg-white text-sandalwood-800 border-sandalwood-300 hover:bg-sandalwood-100';
+                }
+            });
+
+            renderVolumeDetail(index);
+            updateVolumeChart(index);
+        }
+
+        function renderVolumeDetail(index) {
+            const data = volumeData[index];
+            document.getElementById('volume-phase-badge').innerText = `階段：${data.phase}`;
+            
+            const detailCard = document.getElementById('volume-detail-card');
+            detailCard.innerHTML = `
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="md:col-span-2 space-y-3">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 rounded text-xs font-bold bg-amberGold-500/20 text-amberGold-800 border border-amberGold-500/30">卷 ${data.vol}</span>
+                            <h4 class="font-serif font-bold text-xl text-sandalwood-900">${data.title}</h4>
+                        </div>
+                        <p class="text-sm text-sandalwood-800 leading-relaxed">${data.desc}</p>
+                        <div class="pt-2">
+                            <span class="text-xs font-bold text-sandalwood-600 block mb-1">【包含主要章品】</span>
+                            <div class="flex flex-wrap gap-1.5">
+                                ${data.chapters.map(c => `<span class="px-2 py-0.5 bg-white text-sandalwood-800 rounded border border-sandalwood-200 text-xs font-medium">${c}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl p-4 border border-sandalwood-200 space-y-2 text-xs md:text-sm shadow-sm">
+                        <div class="flex items-center justify-between border-b border-sandalwood-100 pb-2">
+                            <span class="font-bold text-amberGold-700 font-serif">十供養表徵</span>
+                            <span class="px-2 py-0.5 rounded bg-amberGold-100 text-amberGold-800 font-bold text-xs">${data.offering}</span>
+                        </div>
+                        <div>
+                            <span class="text-sandalwood-600 font-medium">象徵法義：</span>
+                            <p class="text-sandalwood-900 font-medium mt-0.5">${data.symbol}</p>
+                        </div>
+                        <div class="pt-1">
+                            <span class="text-sandalwood-600 font-medium">獲致功德利益：</span>
+                            <p class="text-sandalwood-900 font-medium mt-0.5">${data.merit}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initVolumeChart() {
+            const ctx = document.getElementById('volumeChart').getContext('2d');
+            volumeChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: volumeData.map(d => `卷${getChineseNum(d.vol)}`),
+                    datasets: [
+                        {
+                            label: '自利淨罪/解冤比重 (%)',
+                            data: volumeData.map(d => d.selfRatio),
+                            backgroundColor: '#D97706',
+                            borderRadius: 4
+                        },
+                        {
+                            label: '利他代懺/迴向比重 (%)',
+                            data: volumeData.map(d => d.altRatio),
+                            backgroundColor: '#047857',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { stacked: true, grid: { display: false } },
+                        y: { stacked: true, max: 100, ticks: { callback: v => v + '%' } }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateVolumeChart(selectedIndex) {
+            if (!volumeChartInstance) return;
+            const bgSelf = volumeData.map((_, idx) => idx === selectedIndex ? '#B45309' : '#F59E0B88');
+            const bgAlt = volumeData.map((_, idx) => idx === selectedIndex ? '#065F46' : '#04785788');
+            
+            volumeChartInstance.data.datasets[0].backgroundColor = bgSelf;
+            volumeChartInstance.data.datasets[1].backgroundColor = bgAlt;
+            volumeChartInstance.update();
+        }
+
+        // --- 2. 六番開示 邏輯 ---
+        function renderSixTalks() {
+            const container = document.getElementById('six-talks-container');
+            container.innerHTML = sixTalksData.map((talk, idx) => `
+                <div class="bg-white rounded-xl border border-sandalwood-200 p-5 shadow-sm hover:border-amberGold-500 transition">
+                    <div class="flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-sandalwood-100 text-sandalwood-900 font-serif font-bold flex items-center justify-center shrink-0 border border-sandalwood-300">
+                            0${idx + 1}
+                        </div>
+                        <div class="flex-1 space-y-2">
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <h4 class="font-serif font-bold text-base md:text-lg text-sandalwood-900">
+                                    ${talk.step}：${talk.title}
+                                </h4>
+                                <span class="text-xs px-2.5 py-0.5 rounded bg-sandalwood-100 text-sandalwood-700 font-medium">六番開示第 ${idx + 1} 重</span>
+                            </div>
+                            <div class="p-2.5 rounded bg-sandalwood-50 border-l-2 border-amberGold-600 text-xs md:text-sm font-serif text-sandalwood-900 italic">
+                                「${talk.verse}」
+                            </div>
+                            <p class="text-xs md:text-sm text-sandalwood-800 leading-relaxed">
+                                ${talk.content}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // --- 3. 密咒觀想 邏輯 ---
+        function renderMantras(category) {
+            const grid = document.getElementById('mantra-grid');
+            const filtered = category === 'all' 
+                ? mantraData 
+                : mantraData.filter(m => m.category === category);
+
+            grid.innerHTML = filtered.map(m => `
+                <div class="bg-white rounded-2xl p-5 border border-sandalwood-200 shadow-sm space-y-3 flex flex-col justify-between hover:shadow-md transition">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-serif font-bold text-base text-sandalwood-900">${m.name}</h4>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-amberGold-100 text-amberGold-800 font-semibold">密咒觀想</span>
+                        </div>
+                        <p class="text-xs font-mono text-amberGold-700 bg-sandalwood-50 p-2 rounded border border-sandalwood-200 mb-3 font-semibold">
+                            ${m.phrase}
+                        </p>
+                        <div class="space-y-1.5 text-xs text-sandalwood-800">
+                            <div>
+                                <span class="font-bold text-sandalwood-900">觀想機制：</span>
+                                <span>${m.vis}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-2 border-t border-sandalwood-100 text-xs">
+                        <span class="font-bold text-buddhaGreen-800">幽冥利益：</span>
+                        <span class="text-sandalwood-800">${m.benefit}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterMantras(cat) {
+            const btns = document.querySelectorAll('.mantra-btn');
+            btns.forEach(b => {
+                b.className = 'mantra-btn px-4 py-1.5 rounded-full text-xs font-bold bg-white text-sandalwood-800 border border-sandalwood-300 hover:bg-sandalwood-100';
+            });
+            event.target.className = 'mantra-btn px-4 py-1.5 rounded-full text-xs font-bold bg-amberGold-600 text-white shadow-sm';
+            renderMantras(cat);
+        }
+
+        // --- 4. 裝備檢核清單 邏輯 ---
+        function switchChecklistTab(tab) {
+            currentChecklistTab = tab;
+            const tabs = ['senior', 'adult', 'child', 'common'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === tab) {
+                    btn.className = 'tab-checklist-btn px-4 py-2 text-xs md:text-sm font-bold rounded-t-lg bg-amberGold-600 text-white';
+                } else {
+                    btn.className = 'tab-checklist-btn px-4 py-2 text-xs md:text-sm font-bold rounded-t-lg bg-sandalwood-100 text-sandalwood-700';
+                }
+            });
+            renderChecklist(tab);
+        }
+
+        function renderChecklist(tab) {
+            const container = document.getElementById('checklist-items-container');
+            const items = checklistData[tab];
+            
+            container.innerHTML = items.map(item => `
+                <label class="flex items-center gap-3 p-3 rounded-xl border border-sandalwood-200 bg-sandalwood-50/50 hover:bg-sandalwood-100/50 transition cursor-pointer">
+                    <input type="checkbox" 
+                           class="w-4 h-4 rounded text-amberGold-600 focus:ring-amberGold-500 border-sandalwood-300"
+                           ${item.done ? 'checked' : ''} 
+                           onchange="toggleCheckItem('${tab}', '${item.id}')">
+                    <span class="text-xs md:text-sm font-medium ${item.done ? 'line-through text-sandalwood-400' : 'text-sandalwood-900'}">
+                        ${item.text}
+                    </span>
+                </label>
+            `).join('');
+
+            updateProgress();
+        }
+
+        function toggleCheckItem(tab, id) {
+            const item = checklistData[tab].find(i => i.id === id);
+            if (item) {
+                item.done = !item.done;
+            }
+            renderChecklist(tab);
+        }
+
+        function updateProgress() {
+            let total = 0;
+            let checked = 0;
+            Object.keys(checklistData).forEach(key => {
+                checklistData[key].forEach(i => {
+                    total++;
+                    if (i.done) checked++;
+                });
+            });
+            const pct = Math.round((checked / total) * 100);
+            const progressBar = document.getElementById('checklist-progress');
+            progressBar.style.width = pct + '%';
+            progressBar.innerText = pct + '%';
+        }
+
+        // 轉中文數字輔助函式
+        function getChineseNum(num) {
+            const numMap = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
+            return numMap[num] || num;
+        }
+    </script>
+</body>
+</html>
